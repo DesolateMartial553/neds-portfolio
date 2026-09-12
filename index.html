@@ -152,11 +152,7 @@
 
   /* Tech badges */
   .tech-badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;}
-  .tech-badge{
-    font-size:0.82rem;font-weight:700;color:var(--accent-dark);
-    background:var(--bg-alt);border:1px solid var(--border);
-    padding:6px 14px;border-radius:20px;
-  }
+  .tech-badge{margin-bottom:0;border:1px solid var(--border);}
 
   /* Process */
   .process-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;counter-reset:step;}
@@ -170,11 +166,6 @@
   }
   .process-step h3{font-size:1.1rem;font-weight:700;margin-bottom:8px;}
   .process-step p{color:var(--ink-soft);font-size:0.92rem;}
-  .process-step:not(:last-child)::after{
-    content:'';position:absolute;top:20px;left:100px;right:-24px;height:2px;
-    background:var(--border);
-  }
-  @media (max-width:900px){.process-step::after{display:none;}}
 
   /* Projects */
   .project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;}
@@ -298,12 +289,12 @@
       <div class="stat"><strong>0</strong><span>Generic templates used</span></div>
     </div>
     <div class="tech-badges">
-      <span class="tech-badge">HTML5</span>
-      <span class="tech-badge">CSS3</span>
-      <span class="tech-badge">JavaScript (ES6)</span>
-      <span class="tech-badge">Git &amp; GitHub</span>
-      <span class="tech-badge">GitHub Pages</span>
-      <span class="tech-badge">Responsive Design</span>
+      <span class="eyebrow tech-badge">HTML5</span>
+      <span class="eyebrow tech-badge">CSS3</span>
+      <span class="eyebrow tech-badge">JavaScript (ES6)</span>
+      <span class="eyebrow tech-badge">Git &amp; GitHub</span>
+      <span class="eyebrow tech-badge">GitHub Pages</span>
+      <span class="eyebrow tech-badge">Responsive Design</span>
     </div>
   </div>
 </section>
