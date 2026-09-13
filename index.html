@@ -267,8 +267,33 @@
     text-transform:uppercase;letter-spacing:0.5px;
   }
   .contact-methods a:hover{background:var(--ink);color:var(--bg);}
-  .contact-methods a.contact-primary{background:var(--ink);color:var(--bg);}
-  .contact-methods a.contact-primary:hover{background:var(--accent);border-color:var(--accent);}
+
+  .lead-form{display:flex;flex-direction:column;gap:18px;text-align:left;margin-bottom:34px;}
+  .lead-form label{
+    display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:0.78rem;
+    text-transform:uppercase;letter-spacing:0.5px;color:var(--ink-soft);
+  }
+  .lead-form .req{color:var(--accent);margin-left:2px;}
+  .lead-form input,.lead-form textarea{
+    font-family:'PT Serif',serif;font-size:1rem;font-weight:400;
+    text-transform:none;letter-spacing:normal;
+    padding:10px 12px;border:1.5px solid var(--ink);border-radius:2px;
+    background:var(--bg);color:var(--ink);
+  }
+  .lead-form input:focus,.lead-form textarea:focus{outline:none;border-color:var(--accent);}
+  .lead-form textarea{resize:vertical;min-height:100px;}
+  .lead-submit{
+    width:100%;cursor:pointer;font-family:'PT Serif',serif;
+    background:var(--ink);color:var(--bg);
+  }
+  .lead-submit:hover{background:var(--accent);border-color:var(--accent);}
+  .lead-submit:disabled{opacity:0.6;cursor:wait;}
+  .lead-status{font-size:0.9rem;font-style:italic;min-height:1.3em;margin-top:-6px;}
+  .lead-status.success{color:#2f6d3a;}
+  .lead-status.error{color:var(--accent-dark);}
+
+  .contact-divider{display:flex;align-items:center;gap:14px;margin:30px 0;color:var(--ink-soft);font-size:0.78rem;text-transform:uppercase;letter-spacing:1px;}
+  .contact-divider::before,.contact-divider::after{content:'';flex:1;height:1px;background:var(--border);}
 
   footer{
     background:var(--ink);color:var(--bg);padding:36px 24px;text-align:center;font-size:0.85rem;position:relative;z-index:2;
@@ -429,8 +454,27 @@
     <div class="contact-box">
       <h2>Want a site like these?</h2>
       <p>Tell me about your business and I'll put together something real to look at — no obligation.</p>
+      <form class="lead-form" id="leadForm" novalidate>
+        <label>Name<span class="req">*</span>
+          <input type="text" name="name" required minlength="2" maxlength="120" placeholder="Jane Doe">
+        </label>
+        <label>Email<span class="req">*</span>
+          <input type="email" name="email" required maxlength="254" placeholder="jane@example.com">
+        </label>
+        <label>Business Name
+          <input type="text" name="businessName" maxlength="160" placeholder="Jane's Bakery (optional)">
+        </label>
+        <label>Phone
+          <input type="tel" name="phone" maxlength="40" placeholder="07123 456789 (optional)">
+        </label>
+        <label>Message<span class="req">*</span>
+          <textarea name="message" required minlength="10" maxlength="5000" rows="4" placeholder="Tell me about your business, what you're looking for, and your timeline..."></textarea>
+        </label>
+        <button type="submit" class="btn btn-primary lead-submit">Send Me Your Details</button>
+        <p class="lead-status" id="leadStatus" role="status" aria-live="polite"></p>
+      </form>
+      <div class="contact-divider">or</div>
       <div class="contact-methods">
-        <a href="https://nimble-informal-coin.replit.app" target="_blank" rel="noopener" class="contact-primary">Send Me Your Details</a>
         <a href="mailto:infiniteasura2006@gmail.com">infiniteasura2006@gmail.com</a>
         <a href="tel:+447881174192">07881 174192</a>
       </div>
@@ -473,6 +517,48 @@
       </div>
     </div>
   `).join('');
+
+  // Lead form — submits straight to the Replit-hosted API
+  const leadForm = document.getElementById('leadForm');
+  const leadStatus = document.getElementById('leadStatus');
+  leadForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fd = new FormData(leadForm);
+    const payload = {
+      name: fd.get('name').trim(),
+      email: fd.get('email').trim(),
+      message: fd.get('message').trim(),
+    };
+    const businessName = fd.get('businessName').trim();
+    const phone = fd.get('phone').trim();
+    if (businessName) payload.businessName = businessName;
+    if (phone) payload.phone = phone;
+
+    const submitBtn = leadForm.querySelector('.lead-submit');
+    submitBtn.disabled = true;
+    leadStatus.textContent = 'Sending…';
+    leadStatus.className = 'lead-status';
+
+    try {
+      const res = await fetch('https://nimble-informal-coin.replit.app/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || 'Something went wrong. Please try again.');
+      leadStatus.textContent = "Thanks — I've got your details and will be in touch within 24 hours.";
+      leadStatus.className = 'lead-status success';
+      leadForm.reset();
+    } catch (err) {
+      leadStatus.textContent = (err instanceof TypeError)
+        ? "Couldn't reach the server — please email me directly instead."
+        : (err.message || 'Something went wrong. Please email me directly.');
+      leadStatus.className = 'lead-status error';
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
 
   // Mobile menu
   const toggle = document.getElementById('menuToggle');
