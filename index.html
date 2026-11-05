@@ -17,616 +17,978 @@
 <meta name="twitter:title" content="Ned — Web Designer &amp; Developer, Birmingham">
 <meta name="twitter:description" content="Ned builds fast, real websites for local businesses that don't have one yet.">
 <meta name="twitter:image" content="https://desolatemartial553.github.io/neds-portfolio/assets/ned-brand-mark.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://images.pexels.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#F7F0E0">
+<link rel="preload" href="assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/spline-sans-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script>document.documentElement.classList.add('js');</script>
 <style>
-  :root{
-    --bg:#f2ead9;
-    --bg-alt:#e9dfc7;
-    --ink:#1c1a15;
-    --ink-soft:#4a4436;
-    --accent:#b3391d;
-    --accent-dark:#8a2914;
-    --card:#fbf7ec;
-    --border:#c9bc9c;
-    --header-h:104px;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-  }
-  body{
-    font-family:'PT Serif',Georgia,'Times New Roman',serif;
-    background:var(--bg);
-    color:var(--ink);
-    line-height:1.6;
-    position:relative;
-  }
-  body::before{
-    content:'';position:fixed;inset:0;pointer-events:none;z-index:1;
-    background-image:radial-gradient(rgba(0,0,0,0.08) 1px, transparent 1px);
-    background-size:3px 3px;
-    mix-blend-mode:multiply;
-    opacity:0.4;
-  }
-  a{color:inherit;text-decoration:none;}
-  img{max-width:100%;display:block;}
-  section{scroll-margin-top:var(--header-h);}
-  h1,h2,h3{font-family:'Playfair Display',serif;}
+@font-face{font-family:"Bricolage Grotesque";src:url(assets/fonts/bricolage-grotesque-latin.woff2) format("woff2");font-weight:300 800;font-style:normal;font-display:swap}
+@font-face{font-family:"Spline Sans Mono";src:url(assets/fonts/spline-sans-mono-latin.woff2) format("woff2");font-weight:400 600;font-style:normal;font-display:swap}
 
-  /* Header / Masthead */
-  header{
-    position:fixed;top:0;left:0;right:0;
-    background:var(--bg);
-    border-bottom:3px double var(--ink);
-    z-index:1000;
-  }
-  .dateline{
-    text-align:center;font-size:0.68rem;font-weight:700;
-    letter-spacing:2.5px;text-transform:uppercase;color:var(--ink-soft);
-    padding:7px 24px;border-bottom:1px solid var(--border);
-  }
-  .nav-wrap{
-    width:100%;max-width:1100px;margin:0 auto;padding:14px 24px;
-    display:flex;align-items:center;justify-content:space-between;
-  }
-  .logo{font-size:1.9rem;font-weight:900;letter-spacing:-0.5px;}
-  .logo span{color:var(--accent);}
-  nav ul{list-style:none;display:flex;align-items:center;}
-  nav li{position:relative;}
-  nav li:not(:last-child){margin-right:20px;padding-right:20px;border-right:1px solid var(--border);}
-  nav a{font-weight:700;font-size:0.82rem;text-transform:uppercase;letter-spacing:1px;padding:6px 0;position:relative;}
-  nav a::after{
-    content:'';position:absolute;bottom:0;left:0;width:0;height:2px;
-    background:var(--accent);transition:width .25s ease;
-  }
-  nav a:hover::after,nav a:focus-visible::after{width:100%;}
-  .nav-cta{
-    font-weight:700;font-size:0.8rem;text-transform:uppercase;letter-spacing:1px;
-    border:2px solid var(--ink);color:var(--ink) !important;padding:9px 18px;border-radius:2px;
-    transition:background .2s ease,color .2s ease;
-  }
-  .nav-cta:hover,.nav-cta:focus-visible{background:var(--ink);color:var(--bg) !important;}
-  .menu-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:8px;}
-  .menu-toggle span{width:24px;height:2px;background:var(--ink);display:block;}
+:root{
+  --ink:#17130F;--paper:#F7F0E0;--sky:#6FB4F2;--mint:#8FD9BA;--go:#C8672C;--card:#FFFAEC;
+  --m:clamp(20px,3.4vw,48px);--hh:64px;--sb:40px;
+  --ease-out:cubic-bezier(.215,.61,.355,1);--ease-io:cubic-bezier(.645,.045,.355,1);--ease-pop:cubic-bezier(.34,1.56,.64,1);
+  --f-word:42vw;--f-title:clamp(2.4rem,6vw,5.5rem);--f-lead:clamp(1.5rem,3vw,3rem);--f-body:17px;--f-cap:14px;
+  --display:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"Spline Sans Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --grain-l:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.6 -.3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --grain-d:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.6 -.3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --chrome:var(--ink);--field-bg:var(--sky);--focus:var(--ink);
+}
+@media (min-width:900px){:root{--hh:72px;--f-body:18px;--f-word:min(34vw,44vh)}}
 
-  @media (max-width:820px){
-    nav ul{
-      position:fixed;top:var(--header-h);left:0;right:0;
-      flex-direction:column;align-items:flex-start;background:var(--bg);
-      padding:20px 24px;gap:18px;border-bottom:1px solid var(--border);
-      box-shadow:0 20px 40px rgba(28,26,21,0.18);
-      transform:translateY(-150%);transition:transform .3s ease;
-      z-index:1001;
-    }
-    nav li{margin-right:0 !important;padding-right:0 !important;border-right:none !important;}
-    nav ul.open{transform:translateY(0);}
-    .menu-toggle{display:flex;}
-    .nav-cta{display:none;}
-    .menu-scrim{
-      display:none;position:fixed;inset:0;top:var(--header-h);
-      background:rgba(28,26,21,0.4);z-index:999;
-    }
-    .menu-scrim.open{display:block;}
-  }
-  @media (max-width:480px){
-    :root{--header-h:74px;}
-    .dateline{display:none;}
-  }
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;overflow-x:clip}
+body{margin:0;font:400 var(--f-body)/1.55 var(--display);background:var(--paper);color:var(--ink);overflow-x:clip;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3,p,ol,ul,figure{margin:0;padding:0}
+ol,ul{list-style:none}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+[tabindex="-1"]:focus{outline:none}
+.sr-only{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:fixed;left:12px;top:-80px;z-index:300;background:var(--ink);color:var(--paper);padding:12px 18px;border-radius:999px;font-weight:700;text-decoration:none}
+.skip:focus{top:12px;outline:3px solid var(--go);outline-offset:2px}
+svg.i{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 
-  /* Hero */
-  .hero{
-    padding:calc(var(--header-h) + 60px) 24px 90px;
-    max-width:1100px;margin:0 auto;position:relative;z-index:2;
-    display:grid;grid-template-columns:1.15fr 0.85fr;gap:50px;align-items:center;
-  }
-  .eyebrow{
-    display:inline-block;font-weight:700;font-size:0.78rem;letter-spacing:2px;text-transform:uppercase;
-    color:var(--accent-dark);padding:5px 14px;border:1px solid var(--ink);border-radius:2px;
-    margin-bottom:22px;background:transparent;
-  }
-  .hero h1{font-size:3.1rem;font-weight:900;line-height:1.12;margin-bottom:22px;letter-spacing:-0.5px;}
-  .hero h1 em{color:var(--accent);font-style:italic;}
-  .hero p{font-size:1.12rem;color:var(--ink-soft);max-width:520px;margin-bottom:32px;line-height:1.75;}
-  .btn-row{display:flex;gap:16px;flex-wrap:wrap;}
-  .btn{
-    padding:13px 26px;border-radius:2px;font-weight:700;font-size:0.85rem;
-    text-transform:uppercase;letter-spacing:0.75px;border:2px solid var(--ink);
-    display:inline-block;transition:background .2s ease, color .2s ease;
-  }
-  .btn-primary{background:var(--ink);color:var(--bg);}
-  .btn-primary:hover,.btn-primary:focus-visible{background:var(--accent);border-color:var(--accent);}
-  .btn-outline{background:transparent;color:var(--ink);}
-  .btn-outline:hover,.btn-outline:focus-visible{background:var(--ink);color:var(--bg);}
+/* type roles (five sizes only) */
+.title{font:800 var(--f-title)/.95 var(--display);letter-spacing:-.02em}
+.lead{font:800 var(--f-lead)/1.05 var(--display);letter-spacing:-.02em}
+.cap{font:500 var(--f-cap)/1.35 var(--mono)}
+.wordmark{font:800 var(--f-word)/.8 var(--display);letter-spacing:-.02em;white-space:nowrap}
 
-  .avatar-wrap{display:flex;justify-content:center;}
-  .avatar{
-    width:220px;height:220px;border-radius:50%;
-    background:var(--card);
-    border:3px solid var(--ink);
-    outline:1px solid var(--ink);outline-offset:6px;
-    padding:16px;
-  }
-  .avatar img{width:100%;height:100%;border-radius:50%;object-fit:cover;}
-  @media (max-width:820px){
-    .hero{grid-template-columns:1fr;text-align:center;}
-    .hero p{margin-left:auto;margin-right:auto;}
-    .btn-row{justify-content:center;}
-    .avatar-wrap{order:-1;}
-  }
-  @media (max-width:480px){
-    .hero h1{font-size:2.2rem;}
-    .stat-grid{grid-template-columns:1fr 1fr;}
-    .stat-grid .stat:last-child{grid-column:1/-1;}
-    .section-head h2{font-size:1.8rem;}
-    .avatar{width:170px;height:170px;}
-  }
+/* CTA: the only use of --go */
+.cta{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:44px;padding:9px 20px;background:var(--go);color:var(--ink);border:2px solid var(--ink);border-radius:999px;font-weight:800;font-size:var(--f-body);line-height:1.1;text-decoration:none;cursor:pointer;white-space:nowrap}
+.cta:active{scale:.97}
 
-  /* Section shared */
-  .section{padding:80px 24px;position:relative;z-index:2;}
-  .section-alt{background:var(--bg-alt);}
-  .section-inner{max-width:1100px;margin:0 auto;}
-  .section-head{max-width:640px;margin:0 auto 50px;text-align:center;padding-bottom:16px;}
-  .section-head h2{font-size:2.3rem;font-weight:900;margin-bottom:14px;letter-spacing:-0.5px;}
-  .section-head h2::after{content:'';display:block;width:56px;height:3px;background:var(--accent);margin:18px auto 0;}
-  .section-head p{color:var(--ink-soft);font-size:1.05rem;font-style:italic;}
+/* ============ chrome ============ */
+.top{position:fixed;top:0;left:0;right:0;height:var(--hh);z-index:100;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 var(--m);background:var(--paper);border-bottom:2px solid var(--ink);color:var(--chrome)}
+.brand{display:inline-flex;align-items:center;gap:10px;padding:3px 16px 3px 3px;border:2px solid currentColor;border-radius:999px;text-decoration:none;font-weight:800;letter-spacing:-.01em}
+.brand img{width:40px;height:40px;border-radius:50%}
+.nav{display:none}
+.nav ul{display:flex;gap:clamp(20px,3vw,44px)}
+.nav a{position:relative;display:inline-block;padding:8px 2px;font-weight:700;text-decoration:none}
+.nav a::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:2px;background:currentColor;transform:scaleX(0);transform-origin:left}
+.nav a[aria-current="true"]::after{transform:scaleX(1)}
+.cta-top{display:none}
+.menu-btn{min-height:44px;padding:0 20px;background:transparent;border:2px solid currentColor;border-radius:999px;font-weight:800;cursor:pointer}
+.menu-btn:active{scale:.97}
+.menu{position:fixed;inset:0;z-index:95;background:var(--ink);color:var(--paper);padding:calc(var(--hh) + 28px) var(--m) 40px;display:flex;flex-direction:column;justify-content:center;visibility:hidden;--focus:var(--paper)}
+.menu.is-open{visibility:visible}
+.menu ul{display:grid;gap:6px}
+.menu a{display:block;padding:10px 0;font:800 var(--f-title)/1 var(--display);letter-spacing:-.02em;text-decoration:none}
+.menu .menu-note{margin-top:28px}
+.callbar{position:fixed;left:0;right:0;bottom:0;z-index:90;padding:8px var(--m) calc(8px + env(safe-area-inset-bottom));background:var(--paper);border-top:2px solid var(--ink)}
+.callbar .cta{width:100%;min-height:48px}
+body{padding-bottom:calc(66px + env(safe-area-inset-bottom))}
+.status{display:none}
+html:not(.js) .menu-btn,html:not(.js) .menu{display:none}
+html:not(.js) .top{position:static;height:auto;flex-wrap:wrap;padding-block:10px}
+html:not(.js) .nav{display:block;flex-basis:100%}
+html:not(.js) .nav ul{flex-wrap:wrap;gap:4px 20px}
+html:not(.js) .slide{scroll-margin-top:0}
 
-  /* About */
-  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;}
-  .about-grid h2{font-size:2.1rem;font-weight:900;margin-bottom:20px;letter-spacing:-0.5px;}
-  .about-grid p{color:var(--ink-soft);margin-bottom:16px;}
-  .about-grid p:first-of-type::first-letter{
-    font-family:'Playfair Display',serif;font-weight:900;font-size:3.4rem;line-height:0.75;
-    float:left;margin:6px 8px 0 0;color:var(--accent);
-  }
-  .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:10px;}
-  .stat{background:var(--card);border:1px solid var(--ink);border-radius:0;padding:20px 14px;text-align:center;}
-  .stat strong{display:block;font-size:2rem;color:var(--accent);font-weight:900;font-family:'Playfair Display',serif;}
-  .stat span{font-size:0.8rem;color:var(--ink-soft);text-transform:uppercase;letter-spacing:0.5px;}
-  @media (max-width:820px){.about-grid{grid-template-columns:1fr;}}
+/* ============ slides, stacked (default) ============ */
+.slide{position:relative;isolation:isolate;padding:calc(var(--hh) + 28px) var(--m) 56px;scroll-margin-top:var(--hh);color:var(--ink)}
+html:not(.js) .s-cover{padding-top:28px}
+.slide::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:var(--grain-l);opacity:.14}
+.slide[data-field="sky"]{background:var(--sky)}
+.slide[data-field="mint"]{background:var(--mint)}
+.slide[data-field="paper"]{background:var(--paper)}
+.slide[data-field="ink"]{background:var(--ink);color:var(--paper);--focus:var(--paper)}
+.slide[data-field="ink"]::before{background-image:var(--grain-d);opacity:.1}
+.band{margin-inline:calc(var(--m)*-1);padding-inline:var(--m)}
 
-  /* Tech badges */
-  .tech-badges{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;}
-  .tech-badge{margin-bottom:0;border-style:dashed;border-color:var(--accent);color:var(--accent);}
-  .tech-badge:nth-child(odd){transform:rotate(-2deg);}
-  .tech-badge:nth-child(even){transform:rotate(2deg);}
+/* postcards */
+.postcard{background:var(--card);color:var(--ink);border:2px solid var(--ink);border-radius:4px;padding:8px 8px 0}
+.postcard img{width:100%;height:auto;aspect-ratio:960/600;object-fit:cover;border:2px solid var(--ink);border-radius:2px;background:var(--paper)}
+.postcard figcaption{padding:8px 4px 9px}
 
-  /* Skills */
-  .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}
-  .skill-card{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:0;padding:26px;}
-  .skill-card .icon{font-family:'Playfair Display',serif;font-weight:900;font-size:1.6rem;color:var(--accent);margin-bottom:10px;}
-  .skill-card h3{font-size:1.05rem;font-weight:700;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;font-family:'PT Serif',serif;}
-  .skill-card p{color:var(--ink-soft);font-size:0.92rem;}
+/* cover */
+.s-cover{padding-top:calc(var(--hh) + 0px);padding-bottom:0}
+.b1{padding-block:22px 26px}
+.b1-row{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:18px}
+.cover h1{display:block}
+.cover h1 .ln{display:block}
+.ring{position:relative;width:92px;height:92px;flex:none;color:var(--ink)}
+.ring svg{width:100%;height:100%;display:block;overflow:visible}
+.ring svg text{font:800 15px var(--display);letter-spacing:.04em;fill:currentColor}
+.ring img{position:absolute;left:50%;top:50%;width:42%;height:42%;translate:-50% -50%;border-radius:50%;border:2px solid var(--ink)}
+.b2{border-top:2px solid var(--ink);padding-block:22px}
+.b2 p{max-width:62ch}
+.b3{border-top:2px solid var(--ink);padding-block:22px 0;overflow:hidden}
+.b3 .wordmark{margin:0 0 -4px -.02em}
+.pc-cover{width:66%;margin:2px 0 40px auto;rotate:3deg}
+.cover-grid{display:block}
+.cover-spacer{display:none}
 
-  /* Process */
-  .process-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;counter-reset:step;}
-  .process-step{position:relative;padding-top:8px;}
-  .process-step::before{
-    counter-increment:step;content:counter(step,decimal-leading-zero);
-    display:flex;align-items:center;justify-content:center;
-    width:44px;height:44px;border-radius:50%;
-    border:2px solid var(--ink);background:transparent;color:var(--ink);
-    font-family:'Playfair Display',serif;font-weight:900;font-size:1.05rem;
-    margin-bottom:16px;
-  }
-  .process-step h3{font-size:1.05rem;font-weight:700;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;font-family:'PT Serif',serif;}
-  .process-step p{color:var(--ink-soft);font-size:0.92rem;}
+/* problem */
+.stair{font:800 var(--f-title)/.95 var(--display);letter-spacing:-.02em}
+.stair .st{display:block;margin-left:calc(var(--k)*3.4vw)}
+.st1{--k:0}.st2{--k:1}.st3{--k:2}.st4{--k:3}.st5{--k:4}.st6{--k:5}
+.c-sky{color:var(--sky)}.c-mint{color:var(--mint)}
+mark{position:relative;isolation:isolate;background:var(--sky);color:var(--ink);padding:0 .2em 0 .12em;margin-inline:-.04em -.06em}
+mark::before{content:"";position:absolute;inset:.06em 0 .02em;z-index:-1;background:var(--sky);transform-origin:left}
+.prob-side{margin-top:44px;display:grid;gap:22px}
+.prob-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.prob-cards .postcard{padding:6px 6px 0}
+.prob-cards .pc-a{rotate:-3deg}
+.prob-cards .pc-b{rotate:2.5deg;margin-top:14px}
+.prob-cards figcaption{padding:6px 2px 7px}
+.side-text{max-width:62ch}
 
-  /* Projects */
-  .project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;}
-  .project-card{
-    background:var(--card);border:1px solid var(--ink);border-radius:0;
-    overflow:hidden;display:flex;flex-direction:column;
-    transition:box-shadow .2s ease;
-  }
-  .project-card:hover,.project-card:focus-within{box-shadow:6px 6px 0 var(--ink);}
-  .project-thumb{
-    height:170px;position:relative;overflow:hidden;background:var(--bg-alt);
-  }
-  .project-thumb img{
-    width:100%;height:100%;object-fit:cover;display:block;
-    filter:grayscale(85%) sepia(20%) contrast(1.05);
-    transition:filter .4s ease, transform .5s ease;
-  }
-  .project-card:hover .project-thumb img,.project-card:focus-within .project-thumb img{filter:grayscale(0%) sepia(0%) contrast(1);transform:scale(1.05);}
-  .project-thumb::after{
-    content:'';position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--tint);
-  }
-  .thumb-badge{
-    position:absolute;top:12px;left:12px;color:var(--ink);font-weight:900;font-size:0.72rem;
-    padding:4px 10px;letter-spacing:1px;background:var(--card);
-    border:2px solid var(--ink);border-radius:2px;transform:rotate(-6deg);
-    font-family:'Playfair Display',serif;
-  }
-  .project-card.featured{grid-column:1/-1;flex-direction:row;}
-  .project-card.featured .project-thumb{width:44%;height:auto;min-height:230px;}
-  .project-card.featured .project-body{width:56%;justify-content:center;}
-  .project-card.featured .project-body h3{font-size:1.4rem;}
-  @media (max-width:700px){
-    .project-card.featured{flex-direction:column;}
-    .project-card.featured .project-thumb,
-    .project-card.featured .project-body{width:100%;}
-  }
-  .project-body{padding:22px;display:flex;flex-direction:column;gap:10px;flex:1;}
-  .project-tag{
-    display:inline-block;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;
-    color:var(--accent-dark);padding:3px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
-    align-self:flex-start;
-  }
-  .project-body h3{font-size:1.2rem;font-weight:900;}
-  .project-body p{color:var(--ink-soft);font-size:0.92rem;flex:1;}
-  .project-links{display:flex;gap:10px;margin-top:6px;flex-wrap:wrap;}
-  .project-links a{
-    font-size:0.78rem;font-weight:700;padding:8px 14px;border-radius:2px;
-    border:1.5px solid var(--ink);text-transform:uppercase;letter-spacing:0.5px;
-  }
-  .project-links a.primary{background:var(--ink);color:var(--bg);}
-  .project-links a:hover,.project-links a:focus-visible{background:var(--accent);border-color:var(--accent);color:#fff;}
+/* guide */
+.guide-head{margin-bottom:26px}
+.guide-head .note{margin-top:12px;max-width:62ch}
+.tickets{display:block}
+.ticket{position:sticky;top:calc(var(--hh) + 14px + var(--n)*9px);background:var(--card);border:2px solid var(--ink);border-radius:4px;padding:12px 12px 16px;margin-bottom:30px;rotate:var(--tilt)}
+.ticket:nth-child(1){--n:0;--tilt:-.8deg}.ticket:nth-child(2){--n:1;--tilt:.7deg}.ticket:nth-child(3){--n:2;--tilt:-.5deg}.ticket:nth-child(4){--n:3;--tilt:.9deg}
+.ticket:nth-child(5){--n:4;--tilt:-.9deg}.ticket:nth-child(6){--n:5;--tilt:.6deg}.ticket:nth-child(7){--n:6;--tilt:-.6deg}.ticket:nth-child(8){--n:7;--tilt:.8deg}
+.ticket .card{position:relative;margin-bottom:14px}
+.ticket .card img{width:100%;aspect-ratio:960/600;object-fit:cover;border:2px solid var(--ink);border-radius:2px;background:var(--paper)}
+.ticket .card .cap{padding:8px 2px 0;padding-right:64px}
+.stamp-s{position:absolute;right:8px;top:8px;width:52px;height:52px;display:grid;place-items:center;background:var(--paper);border:2px dashed var(--ink);border-radius:2px;rotate:6deg}
+.stamp-s img{width:34px;height:34px;border:0;border-radius:50%;aspect-ratio:1}
+.t-head{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px}
+.t-name{font:800 var(--f-body)/1.2 var(--display)}
+.t-style{display:inline-block;padding:3px 12px;border:2px solid currentColor;border-radius:999px;font:600 var(--f-cap)/1.3 var(--display)}
+.t-body{margin-top:8px}
+.t-trade{font-weight:700}
+.t-story{margin-top:2px}
+.t-link{display:inline-flex;align-items:center;gap:6px;margin-top:10px;min-height:44px;font-weight:800;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+.t-link svg.i{width:18px;height:18px}
 
-  /* Contact */
-  .contact-box{
-    max-width:640px;margin:0 auto;text-align:center;
-    background:var(--card);border:3px double var(--ink);border-radius:0;
-    padding:50px 34px;
-  }
-  .contact-box h2{font-size:2.1rem;font-weight:900;margin-bottom:14px;}
-  .contact-box p{color:var(--ink-soft);margin-bottom:30px;font-style:italic;}
-  .contact-methods{display:flex;flex-direction:column;gap:14px;align-items:center;}
-  .contact-methods a{
-    font-weight:700;font-size:0.85rem;padding:14px 26px;border-radius:2px;
-    border:1.5px solid var(--ink);background:transparent;width:100%;max-width:340px;
-    text-transform:uppercase;letter-spacing:0.5px;
-  }
-  .contact-methods a:hover,.contact-methods a:focus-visible{background:var(--ink);color:var(--bg);}
+/* process */
+.proc-sub{margin-top:14px;max-width:62ch}
+.route{position:relative;margin-top:40px;display:grid;gap:22px;padding-left:46px}
+.route::before{content:"";position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:var(--ink);transform-origin:top}
+.stop{position:relative;background:var(--card);border:2px solid var(--ink);border-radius:4px;padding:22px 22px 26px}
+.stop::before{content:"";position:absolute;left:-46px;top:20px;width:24px;height:24px;border-radius:50%;background:var(--paper);border:2px solid var(--ink)}
+.stop::after{content:"";position:absolute;left:-39px;top:27px;width:10px;height:10px;border-radius:50%;background:var(--ink)}
+.stop h3{font:800 var(--f-lead)/1.05 var(--display);letter-spacing:-.02em;margin-bottom:6px}
+.stop p{max-width:62ch}
 
-  .lead-form{display:flex;flex-direction:column;gap:18px;text-align:left;margin-bottom:34px;}
-  .lead-form label{
-    display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:0.78rem;
-    text-transform:uppercase;letter-spacing:0.5px;color:var(--ink-soft);
-  }
-  .lead-form .req{color:var(--accent);margin-left:2px;}
-  .lead-form input,.lead-form textarea{
-    font-family:'PT Serif',serif;font-size:1rem;font-weight:400;
-    text-transform:none;letter-spacing:normal;
-    padding:10px 12px;border:1.5px solid var(--ink);border-radius:2px;
-    background:var(--bg);color:var(--ink);
-  }
-  .lead-form input:focus,.lead-form textarea:focus{outline:3px solid var(--accent);outline-offset:2px;border-color:var(--accent);}
-  .lead-form textarea{resize:vertical;min-height:100px;}
-  .lead-submit{
-    width:100%;cursor:pointer;font-family:'PT Serif',serif;
-    background:var(--ink);color:var(--bg);
-  }
-  .lead-submit:hover,.lead-submit:focus-visible{background:var(--accent);border-color:var(--accent);}
-  .lead-submit[aria-busy="true"]{opacity:0.6;cursor:wait;}
-  .lead-status{font-size:0.9rem;font-style:italic;min-height:1.3em;margin-top:-6px;}
-  .lead-status.success{color:#2f6d3a;}
-  .lead-status.error{color:var(--accent-dark);}
+/* proof */
+.stats{display:grid;gap:16px;margin-top:30px}
+.stat{color:var(--ink);border-radius:4px;padding:16px 20px 18px}
+.stat:nth-child(1){background:var(--sky);rotate:-1.2deg}.stat:nth-child(2){background:var(--mint);rotate:1deg}.stat:nth-child(3){background:var(--paper);rotate:-.8deg}
+.stat .n{display:block;font:800 var(--f-title)/.95 var(--display);letter-spacing:-.02em}
+.stat .cap{display:block;margin-top:6px}
+.proof-copy{margin-top:30px;display:grid;gap:16px;max-width:62ch}
+.tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.tags li{padding:6px 14px;border:2px solid var(--paper);border-radius:999px;font:500 var(--f-cap)/1.3 var(--mono)}
 
-  .contact-divider{display:flex;align-items:center;gap:14px;margin:30px 0;color:var(--ink-soft);font-size:0.78rem;text-transform:uppercase;letter-spacing:1px;}
-  .contact-divider::before,.contact-divider::after{content:'';flex:1;height:1px;background:var(--border);}
+/* contact */
+.contact-head{margin-bottom:34px}
+.contact-head .title{margin-bottom:18px}
+.ring-up{display:grid;gap:8px;margin-top:20px}
+.ring-up a{font-weight:800;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px;width:fit-content;min-height:44px;display:inline-flex;align-items:center}
+.contact-card{position:relative;background:var(--card);color:var(--ink);border:2px solid var(--ink);border-radius:4px;padding:22px 20px 24px;rotate:-1.5deg;margin:34px 9px 0}
+.postal{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px;min-height:84px}
+.stamp{position:relative;flex:none;width:118px;height:112px;margin-top:-52px;margin-right:-4px;padding:8px 8px 9px;background:var(--paper);border:3px dashed var(--ink);border-radius:3px;rotate:3deg;display:flex;flex-direction:column;justify-content:space-between;text-align:center;overflow:hidden}
+.stamp .cap{display:block;line-height:1.2}
+.stamp-name{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere;font:800 var(--f-body)/1.05 var(--display);letter-spacing:-.01em}
+.postal .to{padding-top:4px;max-width:20ch}
+.lead-form{display:grid;gap:14px}
+.lead-form .row{display:grid;gap:14px}
+.lead-form label{display:block;font-weight:700;font-size:var(--f-cap);line-height:1.3}
+.lead-form .req{margin-left:2px}
+.lead-form input,.lead-form textarea{display:block;width:100%;margin-top:2px;min-height:46px;padding:8px 2px;font-size:var(--f-body);font-weight:500;background:transparent;border:0;border-bottom:2px solid var(--ink);border-radius:0;outline:none}
+.lead-form textarea{resize:vertical;min-height:84px;line-height:1.4}
+.lead-form input::placeholder,.lead-form textarea::placeholder{color:#17130F99}
+.lead-form input:focus-visible,.lead-form textarea:focus-visible{outline:3px solid var(--ink);outline-offset:2px;border-bottom-color:transparent}
+.lead-submit{justify-self:stretch;margin-top:4px}
+.lead-submit[aria-busy="true"]{opacity:.7;cursor:progress}
+.lead-status{min-height:0;font-weight:700}
+.lead-status:empty{display:none}
+.lead-status.success{background:var(--mint);padding:8px 12px;border:2px solid var(--ink);border-radius:4px}
+.lead-status.error{background:var(--ink);color:var(--paper);padding:8px 12px;border-radius:4px}
+.wm-slice{--wmf:43vw;margin:40px calc(var(--m)*-1) -56px;padding-inline:var(--m);height:calc(var(--wmf)*.5);overflow:hidden}
+.wm-slice .wordmark{font-size:var(--wmf);margin:.02em 0 0 -.02em}
+.foot{padding:20px var(--m);background:var(--ink);color:var(--paper);--focus:var(--paper)}
+.foot p{max-width:none}
+.foot a{font-weight:700}
 
-  footer{
-    background:var(--ink);color:var(--bg);padding:36px 24px;text-align:center;font-size:0.85rem;position:relative;z-index:2;
-  }
-  footer p:first-child{font-family:'Playfair Display',serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:0.9rem;}
-  footer a{font-weight:700;color:#e8a072;}
+/* ============ wide layouts (>=900px), shared by slide mode and wide stacked mode ============ */
+@media (min-width:899.98px){
+  .top{gap:24px}
+  .nav{display:block}
+  .cta-top{display:inline-flex}
+  .menu-btn,.menu,.callbar{display:none}
+  body{padding-bottom:0}
+  .slide{padding:calc(var(--hh) + 56px) var(--m) 72px}
+  .top .nav{flex:1;display:flex;justify-content:center}
+  .cover .b1{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:32px;padding-block:28px 30px}
+  .b1-row{display:contents}
+  .b1-row .cap{display:none}
+  .ring{width:clamp(150px,16vw,220px);height:clamp(150px,16vw,220px);order:2}
+  .b2{padding-block:26px}
+  .b3{display:grid;grid-template-columns:60% 1fr;align-items:end;gap:var(--m);padding-block:30px 0}
+  .b3 .wordmark{margin-bottom:-.03em}
+  .pc-cover{width:min(100%,520px);margin:0 0 36px auto;rotate:2.5deg}
+  .s-cover{padding-top:var(--hh);padding-bottom:0;min-height:100svh}
+  .prob-grid{display:grid;grid-template-columns:minmax(0,1fr) 25%;gap:0;align-items:stretch}
+  .stair .st{margin-left:calc(var(--k)*3.6vw)}
+  .prob-side{margin-top:0;border-left:2px solid var(--paper);padding-left:var(--m);align-content:center;gap:28px}
+  .prob-cards{grid-template-columns:1fr;gap:20px}
+  .prob-cards .pc-a{width:94%}
+  .prob-cards .pc-b{width:94%;margin:0 0 0 auto}
+  .proc-grid{display:grid;gap:56px}
+  .route{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--m);margin-top:12px;padding:64px 0 0}
+  .route::before{left:0;right:0;top:12px;bottom:auto;width:auto;height:2px;transform-origin:left}
+  .stop::before{left:20px;top:-64px}
+  .stop::after{left:27px;top:-57px}
+  .proof-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 var(--m)}
+  .proof-grid .proof-head{grid-column:1/-1}
+  .stats{display:contents}
+  .stat{margin-top:34px}
+  .proof-body{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:var(--m);margin-top:44px;align-items:start}
+  .proof-copy{margin-top:0}
+  .tags{margin-top:0;align-content:flex-start}
+  .contact-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,580px);gap:calc(var(--m)*2);align-items:center}
+  .contact-head{margin-bottom:0}
+  .contact-card{margin-top:0;margin-inline:0}
+  .lead-form .row{grid-template-columns:1fr 1fr}
+  .wm-slice{--wmf:45vw;height:calc(var(--wmf)*.34);margin-top:56px}
+  .guide-wrap{max-width:720px;margin-inline:auto}
+  .foot{display:block}
+}
+@media (max-width:899.98px){
+  .callbar{display:block}
+}
+@media (max-width:899.98px){.top .nav{display:none}.top .cta-top{display:none}}
+html:not(.js) .nav{display:block!important}
+html:not(.js) .callbar{display:none}
+html:not(.js) body{padding-bottom:0}
+
+/* ============ SLIDE MODE ============ */
+html.slides,html.slides body{height:100%;overflow:hidden;padding:0}
+.slides{--slice:clamp(96px,21vh,260px)}
+.slides main{position:fixed;inset:0;display:block}
+.slides .slide{position:absolute;inset:0;z-index:0;visibility:hidden;overflow:hidden auto;overscroll-behavior:contain;clip-path:inset(0);padding:var(--hh) var(--m) var(--sb);scroll-margin-top:0;min-height:0;scrollbar-width:none}
+.slides .slide::-webkit-scrollbar{display:none}
+.slides .slide.is-active{visibility:visible;z-index:2}
+.slides .slide.is-leaving{visibility:visible;z-index:1}
+.slides .slide.is-entering{visibility:visible;z-index:3;clip-path:inset(100% 0 0 0);will-change:clip-path}
+.slides .slide.is-entering.from-top{clip-path:inset(0 0 100% 0)}
+.slides .slide.is-entering.go{clip-path:inset(0);transition:clip-path 700ms var(--ease-io)}
+.slides .top{background:transparent;border-bottom:0}
+body[data-field="sky"]{--field-bg:var(--sky)}
+body[data-field="ink"]{--field-bg:var(--ink);--chrome:var(--paper);--focus:var(--paper)}
+body[data-field="paper"]{--field-bg:var(--paper)}
+body[data-field="mint"]{--field-bg:var(--mint)}
+.slides .status{display:grid;position:fixed;left:0;right:0;bottom:0;height:var(--sb);z-index:100;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 var(--m);color:var(--chrome);background:var(--field-bg);font:500 var(--f-cap)/1 var(--mono)}
+.status .hint{justify-self:end;display:inline-flex;align-items:center;gap:8px}
+.status .hint svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.bullets{display:flex;gap:2px}
+.bullets button{width:26px;height:26px;display:grid;place-items:center;background:none;border:0;padding:0;cursor:pointer;color:inherit}
+.bullets button::before{content:"";width:12px;height:12px;border-radius:50%;border:2px solid currentColor}
+.bullets button[aria-current="step"]::before{background:currentColor}
+.slides .cta-top{display:inline-flex}
+.slides .callbar{display:none}
+
+/* cover (slide) */
+.slides .s-cover{padding:var(--hh) var(--m) var(--sb);min-height:0}
+.slides .cover-grid{height:100%;display:grid;grid-template-rows:minmax(0,38fr) minmax(0,11fr) minmax(0,51fr);margin-inline:0}
+.slides .b1{border-top:2px solid var(--ink);align-self:stretch;padding-block:0}
+.slides .b2{display:flex;align-items:center;padding-block:0}
+.slides .b2 p{max-width:none}
+.slides .b3{padding-block:0;min-height:0;overflow:visible;align-items:end}
+.slides .s-cover{overflow:hidden}
+.slides .b1{display:grid;align-items:center}
+.slides .ring{width:auto;height:calc(100% - 28px);aspect-ratio:1;max-height:250px}
+.slides .b3 .wordmark{align-self:end;margin-bottom:.02em}
+.slides .pc-cover{align-self:end;margin-bottom:26px;margin-right:12px;height:calc(100% - 52px);max-height:430px;width:auto;aspect-ratio:1/.72;margin-left:auto;display:flex;flex-direction:column}
+.slides .pc-cover img{flex:1;min-height:0;height:auto;aspect-ratio:auto;object-position:left top}
+.slides .pc-cover figcaption{flex:none}
+
+/* problem (slide) */
+.slides .prob-grid{height:100%;align-items:stretch}
+.slides .stair{align-self:center}
+.slides .prob-grid>.stair-wrap{display:flex;align-items:center}
+.slides .prob-side{height:100%}
+.slides .prob-cards .postcard{max-height:none}
+
+/* guide (slide) */
+.slides .s-guide{--cw:min(calc(.56*(100vw - 2*var(--m)) - var(--m)),calc((100vh - var(--hh) - var(--sb) - 250px)*1.6));--ctop:calc(var(--hh) + clamp(8px,2vh,24px));display:grid;grid-template-columns:minmax(0,44%) 1fr;grid-template-rows:auto minmax(0,1fr);column-gap:var(--m);padding-top:var(--hh)}
+.slides .guide-head{grid-column:1;margin:clamp(8px,2.4vh,28px) 0 clamp(8px,2vh,22px)}
+.slides .guide-head .note{font:500 var(--f-cap)/1.35 var(--mono);margin-top:8px}
+.slides .guide-wrap{display:contents}
+.slides .tickets{grid-column:1;grid-row:2;display:flex;flex-direction:column;gap:8px;min-height:0;padding-bottom:clamp(8px,2vh,22px)}
+.slides .ticket{position:static;top:auto;rotate:none;margin:0;flex:1 1 0;max-height:78px;min-height:0;padding:0;background:none;border:0;display:flex;flex-direction:column;justify-content:stretch}
+.slides .t-head{position:relative;isolation:isolate;overflow:hidden;flex:1;min-height:44px;padding:0 18px;flex-wrap:nowrap;justify-content:space-between;align-items:center;gap:14px;cursor:pointer;border:2px solid var(--ink);border-radius:4px}
+.slides .t-head::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--ink);transform:scaleX(0);transform-origin:left}
+.slides .ticket.is-on .t-head{color:var(--paper)}
+.slides .ticket.is-on .t-head::before{transform:scaleX(1)}
+.slides .t-head:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.slides .t-name{flex:1;min-width:0}
+.slides .t-style{flex:none}
+.slides .card{position:absolute;margin:0;right:var(--m);top:var(--ctop);width:var(--cw);padding:8px 8px 0;background:var(--card);border:2px solid var(--ink);border-radius:4px;opacity:0;visibility:hidden;rotate:calc(var(--tilt-s)*2.2);scale:.97;z-index:1}
+.slides .card .cap{padding:8px 4px 9px}
+.slides .ticket:nth-child(odd){--tilt-s:1.6deg}
+.slides .ticket:nth-child(even){--tilt-s:-1.6deg}
+.slides .ticket.is-on .card{opacity:1;visibility:visible;rotate:var(--tilt-s);scale:1;z-index:2}
+.slides .stamp-s{right:-10px;top:-14px}
+.slides .card .cap{padding-right:8px}
+.slides .t-body{position:absolute;right:var(--m);top:calc(var(--ctop) + var(--cw)*.625 + 78px);width:var(--cw);margin:0;opacity:0;visibility:hidden;color:var(--ink);z-index:1}
+.slides .ticket.is-on .t-body{opacity:1;visibility:visible}
+.slides .t-link{margin-top:6px;min-height:36px}
+
+/* process (slide) */
+.slides .proc-grid{height:100%;align-content:center;gap:clamp(40px,9vh,84px)}
+.slides .route{margin-top:0}
+
+/* proof (slide) */
+.slides .proof-grid{height:100%;align-content:center;gap:clamp(20px,5vh,56px) calc(var(--m)*2)}
+.slides .stats{gap:clamp(6px,2vh,22px)}
+.slides .stat .n{font-size:var(--f-title)}
+
+/* contact (slide) */
+.slides .s-contact{display:grid;grid-template-rows:minmax(0,1fr) auto;padding-bottom:0}
+.slides .contact-grid{align-self:center;padding-top:34px}
+.slides .wm-slice{--wmf:45vw;position:relative;height:var(--slice);margin:0 calc(var(--m)*-1);align-self:end}
+.slides .wm-slice .wordmark{margin-top:0}
+.slides .s-contact{padding-bottom:var(--sb)}
+.slides .foot{position:fixed;left:0;right:0;bottom:calc(var(--sb) + var(--slice));z-index:5;background:transparent;color:var(--ink);padding:0 var(--m) 8px;visibility:hidden;pointer-events:none}
+html.slides body[data-slide="contact"] .foot{visibility:visible;pointer-events:auto}
+.slides .foot a{color:inherit}
+.slides .foot p{max-width:min(46vw,560px)}
+@media (max-height:820px){
+  .slides .contact-grid{padding-top:8px}
+  .slides .contact-card{padding:14px 16px 16px}
+  .slides .postal{min-height:44px;margin-bottom:4px}
+  .slides .stamp{margin-top:-36px;width:132px;height:100px;padding:5px 6px}
+  .slides .stamp .cap{white-space:nowrap;line-height:1.1}
+  .slides .stamp-name{-webkit-line-clamp:2}
+  .slides .lead-form,.slides .lead-form .row{gap:6px}
+  .slides .lead-form input{min-height:36px;padding:4px 2px}
+  .slides .lead-form textarea{min-height:52px}
+  .slides .lead-submit{min-height:40px;padding-block:6px}
+  .slides .contact-head .title{margin-bottom:10px}
+  .slides .ring-up{margin-top:8px;gap:0}
+}
+.slides .wm-slice{z-index:0}
+
+/* hover effects: only with a real pointer */
+@media (hover:hover) and (pointer:fine){
+  .nav a:hover::after{transform:scaleX(1)}
+  .cta:hover{translate:0 -2px;box-shadow:0 4px 0 var(--ink)}
+  .brand:hover{background:var(--ink);color:var(--paper)}
+  .t-link:hover,.ring-up a:hover{text-decoration-thickness:4px}
+  .bullets button:hover::before{background:currentColor}
+  .menu-btn:hover{background:var(--ink);color:var(--paper)}
+}
+
+/* ============ motion (everything animated lives here) ============ */
+@media (prefers-reduced-motion:no-preference){
+  html{scroll-behavior:smooth}
+  .nav a::after{transition:transform 200ms var(--ease-out)}
+  .cta,.menu-btn{transition:translate 200ms var(--ease-out),box-shadow 200ms var(--ease-out),scale 120ms var(--ease-out),background-color 200ms,color 200ms}
+  .brand{transition:background-color 200ms,color 200ms}
+  .top,.status{transition:color 300ms var(--ease-out)}
+  .status{transition:color 300ms,background-color 300ms}
+  .bullets button::before{transition:background-color 200ms}
+  .ring svg{animation:spin 40s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .menu{opacity:0;transition:opacity 250ms var(--ease-out),visibility 0s 250ms}
+  .menu.is-open{opacity:1;transition:opacity 250ms var(--ease-out)}
+
+  .fx [data-rise]{opacity:0;translate:0 28px;transition:opacity 600ms var(--ease-out) calc(var(--base,0s) + var(--i,0)*60ms),translate 600ms var(--ease-out) calc(var(--base,0s) + var(--i,0)*60ms)}
+  .fx .is-in [data-rise]{opacity:1;translate:0 0}
+  .slides .slide{--base:.3s}
+  .fx .stair .st[data-rise]{translate:-48px 0}
+  .fx .is-in .stair .st[data-rise]{translate:0 0}
+  .fx mark{color:var(--paper);background:transparent}
+  .fx .is-in mark{color:var(--ink);background-color:var(--sky);transition:color 120ms linear calc(var(--base,0s) + 1.1s + 280ms),background-color 0s linear calc(var(--base,0s) + 1.1s + 700ms)}
+  .fx mark::before{transform:scaleX(0)}
+  .fx .is-in mark::before{transform:scaleX(1);transition:transform 700ms var(--ease-io) calc(var(--base,0s) + 1.1s)}
+  .fx .route::before{transform:scaleY(0)}
+  .fx .is-in .route::before{transform:scaleY(1);transition:transform 1.2s var(--ease-io) var(--base,0s)}
+  .fx .stop::before,.fx .stop::after{opacity:0;scale:.4}
+  .fx .is-in .stop::before,.fx .is-in .stop::after{opacity:1;scale:1;transition:opacity 300ms var(--ease-out) calc(var(--base,0s) + var(--i,0)*300ms),scale 400ms var(--ease-pop) calc(var(--base,0s) + var(--i,0)*300ms)}
+  .fx .contact-card{opacity:0;translate:0 44px;rotate:-5deg}
+  .fx .is-in .contact-card{opacity:1;translate:0 0;rotate:-1.5deg;transition:opacity 500ms var(--ease-out) var(--base,0s),translate 700ms var(--ease-pop) var(--base,0s),rotate 700ms var(--ease-pop) var(--base,0s)}
+  .fx .stamp{scale:1.7;opacity:0}
+  .fx .is-in .stamp{scale:1;opacity:1;transition:scale 450ms var(--ease-pop) calc(var(--base,0s) + .7s),opacity 200ms calc(var(--base,0s) + .7s)}
+  .stamp.bump{animation:bump 320ms var(--ease-pop)}
+  @keyframes bump{0%{scale:1.18}100%{scale:1}}
+  .fx .pc-cover,.fx .prob-cards .postcard{opacity:0;scale:.92}
+  .fx .is-in .pc-cover,.fx .is-in .prob-cards .postcard{opacity:1;scale:1;transition:opacity 500ms var(--ease-out) calc(var(--base,0s) + .4s),scale 600ms var(--ease-pop) calc(var(--base,0s) + .4s)}
+  .slides .t-head::before{transition:transform 320ms var(--ease-out)}
+  .slides .t-head{transition:color 160ms 90ms}
+  .slides .card{transition:opacity 400ms var(--ease-out),rotate 500ms var(--ease-pop),scale 500ms var(--ease-pop),visibility 0s 400ms}
+  .slides .ticket.is-on .card{transition:opacity 400ms var(--ease-out),rotate 500ms var(--ease-pop),scale 500ms var(--ease-pop),visibility 0s 0s}
+  .slides .t-body{transition:opacity 300ms var(--ease-out),visibility 0s 300ms}
+  .slides .ticket.is-on .t-body{transition:opacity 400ms var(--ease-out) 100ms,visibility 0s}
+  .slides .foot{transition:opacity 300ms}
+}
 </style>
 </head>
-<body>
+<body data-field="sky" data-slide="cover">
+<a class="skip" href="#main">Skip to content</a>
 
-<header>
-  <div class="dateline">Birmingham, UK &middot; Web Design &amp; Development</div>
-  <div class="nav-wrap">
-    <a href="#top" class="logo">Ned<span>.</span></a>
-    <nav>
-      <ul id="navList">
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#process">Process</a></li>
-        <li><a href="#work">Work</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-    <a href="#contact" class="nav-cta">Get In Touch</a>
-    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navList">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
+<header class="top">
+  <a class="brand" href="#cover" aria-label="Ned, back to the cover"><img src="assets/ned-brand-mark-96.png" width="96" height="96" alt=""><span>Ned</span></a>
+  <nav class="nav" id="siteNav" aria-label="Main">
+    <ul>
+      <li><a href="#work">Guide</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#proof">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <a class="cta cta-top" href="tel:+447881174192"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><span>Call Ned 07881 174192</span></a>
+  <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
 </header>
-<div class="menu-scrim" id="menuScrim"></div>
 
-<main>
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menu" inert>
+  <ul>
+    <li><a href="#work">Guide</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#proof">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <p class="menu-note cap">Ned: web designer in Birmingham, UK</p>
+</div>
 
-<div id="top"></div>
+<main id="main" class="deck">
 
-<section class="hero" aria-labelledby="hero-heading">
-  <div>
-    <span class="eyebrow">Web Designer &amp; Developer</span>
-    <h1 id="hero-heading">Hi, I'm Ned — I build websites for businesses that <em>don't have one yet.</em></h1>
-    <p>I design and code fast, good-looking websites from scratch — no templates, no page builders. Based near Birmingham, UK, I've already built and launched a full run of live local-business sites, shown below.</p>
-    <div class="btn-row">
-      <a href="#work" class="btn btn-primary">See My Work</a>
-      <a href="#contact" class="btn btn-outline">Hire Me</a>
+<!-- 1 · COVER -->
+<section class="slide s-cover cover" id="cover" data-title="Cover" data-field="sky" aria-labelledby="h-cover">
+  <div class="cover-grid">
+    <div class="band b1">
+      <div class="b1-row">
+        <p class="cap">Northfield · B31 · Birmingham</p>
+        <div class="ring" aria-hidden="true">
+          <svg viewBox="0 0 200 200"><defs><path id="ringPath" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/></defs>
+            <circle cx="100" cy="100" r="95" fill="none" stroke="currentColor" stroke-width="3"/>
+            <circle cx="100" cy="100" r="56" fill="none" stroke="currentColor" stroke-width="2"/>
+            <text><textPath href="#ringPath" textLength="448" lengthAdjust="spacing">POSTED FROM NORTHFIELD • B31 • BIRMINGHAM • NED · WEB DESIGN •</textPath></text>
+          </svg>
+          <img src="assets/ned-brand-mark-96.png" width="96" height="96" alt="">
+        </div>
+      </div>
+      <h1 class="lead" id="h-cover" tabindex="-1"><span class="ln" data-rise>Websites for businesses</span><span class="ln" data-rise>that don't have one yet.</span></h1>
     </div>
-  </div>
-  <div class="avatar-wrap">
-    <div class="avatar"><img src="assets/ned-brand-mark.png" alt="Ned's brand mark" width="220" height="220"></div>
+    <div class="band b2">
+      <p data-rise>I design and code fast, good-looking websites from scratch: no templates, no page builders.</p>
+    </div>
+    <div class="band b3">
+      <p class="wordmark" aria-hidden="true" data-rise>NED</p>
+      <figure class="postcard pc-cover">
+        <img src="assets/work/aladdins-longbridge.webp" width="960" height="600" decoding="async" alt="The Aladdins Longbridge sample site: a red page with a huge cream headline, a cartoon pizza and a yellow call-to-order button.">
+        <figcaption class="cap">One of eight.</figcaption>
+      </figure>
+    </div>
   </div>
 </section>
 
-<section class="section" id="about" aria-labelledby="about-heading">
-  <div class="section-inner about-grid">
+<!-- 2 · PROBLEM -->
+<section class="slide s-problem" id="problem" data-title="The problem" data-field="ink" aria-labelledby="h-problem">
+  <div class="prob-grid">
+    <div class="stair-wrap">
+      <h2 class="stair" id="h-problem" tabindex="-1">
+        <span class="st st1" data-rise>Great</span>
+        <span class="st st2" data-rise><span class="c-sky">Northfield</span></span>
+        <span class="st st3" data-rise>businesses.</span>
+        <span class="st st4" data-rise>No <span class="c-mint">website,</span></span>
+        <span class="st st5" data-rise>or one that's</span>
+        <span class="st st6" data-rise>years out of <mark>date.</mark></span>
+      </h2>
+    </div>
+    <div class="prob-side">
+      <div class="prob-cards">
+        <figure class="postcard pc-a">
+          <img src="assets/work/little-italy-menswear.webp" width="960" height="600" loading="lazy" decoding="async" alt="The Little Italy Menswear sample site: a cream magazine-style page with a huge serif title and a photo of suits on mannequins.">
+          <figcaption class="cap">Little Italy</figcaption>
+        </figure>
+        <figure class="postcard pc-b">
+          <img src="assets/work/church-hill-autos.webp" width="960" height="600" loading="lazy" decoding="async" alt="The Church Hill Autos sample site: a near-black garage page with a bold MOT headline, a yellow number plate box and a car on a lift inside a gauge.">
+          <figcaption class="cap">Church Hill</figcaption>
+        </figure>
+      </div>
+      <p class="side-text" data-rise>So I started building them proper ones myself, on spec, to show owners exactly what's possible.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · THE GUIDE -->
+<section class="slide s-guide" id="work" data-title="The guide" data-field="paper" aria-labelledby="h-work">
+  <div class="guide-head">
+    <h2 class="title" id="h-work" tabindex="-1" data-rise>The guide</h2>
+    <p class="note" data-rise>Eight Northfield sites that had none. Built on spec, to show owners what's possible.</p>
+  </div>
+  <div class="guide-wrap">
+  <ol class="tickets" id="tickets">
+    <li class="ticket">
+      <figure class="card">
+        <img src="assets/work/aladdins-longbridge.webp" width="960" height="600" decoding="async" alt="The Aladdins Longbridge sample site: a red page with a huge cream headline, a cartoon pizza and a yellow call-to-order button.">
+        <figcaption class="cap">Postcard from Northfield · Bold food</figcaption>
+        <span class="stamp-s" aria-hidden="true"><img src="assets/ned-brand-mark-96.png" width="96" height="96" alt=""></span>
+      </figure>
+      <div class="t-head"><h3 class="t-name">Aladdins Longbridge</h3><p class="t-style">Bold food</p></div>
+      <div class="t-body"><p class="t-trade">Pizza, kebab and fried chicken takeaway</p><p class="t-story">Had no website. The sample site is a full menu with call-to-order, collection and delivery details and opening hours.</p>
+        <a class="t-link" href="https://desolatemartial553.github.io/aladdins-longbridge/" target="_blank" rel="noopener">Live site <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg><span class="sr-only"> for Aladdins Longbridge (opens in a new tab)</span></a></div>
+    </li>
+    <li class="ticket">
+      <figure class="card">
+        <img src="assets/work/church-hill-autos.webp" width="960" height="600" loading="lazy" decoding="async" alt="The Church Hill Autos sample site: a near-black garage page with a bold MOT headline, a yellow number plate box and a car on a lift inside a gauge.">
+        <figcaption class="cap">Postcard from Northfield · HUD garage</figcaption>
+        <span class="stamp-s" aria-hidden="true"><img src="assets/ned-brand-mark-96.png" width="96" height="96" alt=""></span>
+      </figure>
+      <div class="t-head"><h3 class="t-name">Church Hill Autos</h3><p class="t-style">HUD garage</p></div>
+      <div class="t-body"><p class="t-trade">MOT and servicing garage</p><p class="t-story">Had no website. The sample site lays out MOT, servicing and repairs, with a number-plate box and a one-tap call button.</p>
+        <a class="t-link" href="https://desolatemartial553.github.io/church-hill-autos/" target="_blank" rel="noopener">Live site <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg><span class="sr-only"> for Church Hill Autos (opens in a new tab)</span></a></div>
+    </li>
+    <li class="ticket">
+      <figure class="card">
+        <img src="assets/work/lani-builders.webp" width="960" height="600" loading="lazy" decoding="async" alt="The Lani Builders sample site: a deep blue blueprint-grid page with a headline about planning to the millimetre, a photo of a kitchen extension and an orange quote button.">
+        <figcaption class="cap">Postcard from Northfield · Blueprint architectural</figcaption>
+        <span class="stamp-s" aria-hidden="true"><img src="assets/ned-brand-mark-96.png" width="96" height="96" alt=""></span>
+      </figure>
+      <div class="t-head"><h3 class="t-name">Lani Builders</h3><p class="t-style">Blueprint architectural</p></div>
+      <div class="t-body"><p class="t-trade">Building and construction</p><p class="t-story">Had no website. The sample site shows past projects and a free-quote button on a blueprint-style layout.</p>
+        <a class="t-link" href="https://desolatemartial553.github.io/lani-builders/" target="_blank" rel="noopener">Live site <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg><span class="sr-only"> for Lani Builders (opens in a new tab)</span></a></div>
+    </li>
+    <li class="ticket">
+      <figure class="card">
+        <img src="assets/work/little-italy-menswear.webp" width="960" height="600" loading="lazy" decoding="async" alt="The Little Italy Menswear sample site: a cream magazine-style page with a huge serif title and a photo of suits on mannequins.">
+        <figcaption class="cap">Postcard from Northfield · Editorial magazine</figcaption>
+        <span class="stamp-s" aria-hidden="true"><img src="assets/ned-brand-mark-96.png" width="96" height="96" alt=""></span>
+      </figure>
+      <div class="t-head"><h3 class="t-name">Little Italy Menswear</h3><p class="t-style">Editorial magazine</p></div>
+      <div class="t-body"><p class="t-trade">Menswear, three shops</p><p class="t-story">Had no website. The sample site puts all three shop addresses and hours in one place, with collections and fitting bookings.</p>
+        <a class="t-link" href="https://desolatemartial553.github.io/little-italy-menswear/" target="_blank" rel="noopener">Live site <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg><span class="sr-only"> for Little Italy Menswear (opens in a new tab)</span></a></div>
+    </li>
+    <li class="ticket">
+      <figure class="card">
+        <img src="assets/work/dd-hairsalon.webp" width="960" height="600" loading="lazy" decoding="async" alt="The Denada's D&amp;D Hairsalon sample site: a soft-toned page with a photo of a salon interior, an italic serif headline and a giant Denada's wordmark.">
+        <figcaption class="cap">Postcard from Northfield · Ethereal editorial beauty</figcaption>
+        <span class="stamp-s" aria-hidden="true"><img src="assets/ned-brand-mark-96.png" width="96" height="96" alt=""></span>
+      </figure>
+      <div class="t-head"><h3 class="t-name">Denada's D&amp;D Hairsalon</h3><p class="t-style">Ethereal editorial beauty</p></div>
+      <div class="t-body"><p class="t-trade">Hair salon</p><p class="t-story">Had no website. The sample site shows the salon, a gallery and an appointment button, so a new client can see the work first.</p>
+        <a class="t-link" href="https://desolatemartial553.github.io/dd-hairsalon/" target="_blank" rel="noopener">Live site <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg><span class="sr-only"> for Denada's D&amp;D Hairsalon (opens in a new tab)</span></a></div>
+    </li>
+    <li class="ticket">
+      <figure class="card">
+        <img src="assets/work/backyard-bar-grill.webp" width="960" height="600" loading="lazy" decoding="async" alt="The Backyard Bar &amp; Grill sample site: a dark green match-day poster page with a chunky cream headline about the big screens and a fixture ticket.">
+        <figcaption class="cap">Postcard from Northfield · Match-day poster</figcaption>
+        <span class="stamp-s" aria-hidden="true"><img src="assets/ned-brand-mark-96.png" width="96" height="96" alt=""></span>
+      </figure>
+      <div class="t-head"><h3 class="t-name">Backyard Bar &amp; Grill</h3><p class="t-style">Match-day poster</p></div>
+      <div class="t-body"><p class="t-trade">Bar and restaurant</p><p class="t-story">Had no website. The sample site is menu-forward, with a match-day fixtures ticket and a book-a-table button.</p>
+        <a class="t-link" href="https://desolatemartial553.github.io/backyard-bar-grill/" target="_blank" rel="noopener">Live site <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg><span class="sr-only"> for Backyard Bar &amp; Grill (opens in a new tab)</span></a></div>
+    </li>
+    <li class="ticket">
+      <figure class="card">
+        <img src="assets/work/bright-products.webp" width="960" height="600" loading="lazy" decoding="async" alt="The Bright Products sample site: a white page with a huge black headline, a grid of rounded tiles for tools, homeware and key cutting, and a yellow ruler strip.">
+        <figcaption class="cap">Postcard from Northfield · Bento hardware</figcaption>
+        <span class="stamp-s" aria-hidden="true"><img src="assets/ned-brand-mark-96.png" width="96" height="96" alt=""></span>
+      </figure>
+      <div class="t-head"><h3 class="t-name">Bright Products</h3><p class="t-style">Bento hardware</p></div>
+      <div class="t-body"><p class="t-trade">Hardware and home essentials</p><p class="t-story">Had no website, just a counter in Northfield Shopping Centre. The sample site shows what's stocked, opening hours and FAQs.</p>
+        <a class="t-link" href="https://desolatemartial553.github.io/bright-products/" target="_blank" rel="noopener">Live site <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg><span class="sr-only"> for Bright Products (opens in a new tab)</span></a></div>
+    </li>
+    <li class="ticket">
+      <figure class="card">
+        <img src="assets/work/bang-bang-bargain-clothes.webp" width="960" height="600" loading="lazy" decoding="async" alt="The Bang Bang Bargain Clothes sample site: a warm cream page with a bold headline about great clothes and greater prices, and a photo of a clothes rail.">
+        <figcaption class="cap">Postcard from Northfield · Redesign in progress</figcaption>
+        <span class="stamp-s" aria-hidden="true"><img src="assets/ned-brand-mark-96.png" width="96" height="96" alt=""></span>
+      </figure>
+      <div class="t-head"><h3 class="t-name">Bang Bang Bargain Clothes</h3><p class="t-style">Redesign in progress</p></div>
+      <div class="t-body"><p class="t-trade">Clothing shop</p><p class="t-story">Had no website. The first sample is live, and a bolder redesign is on the way.</p>
+        <a class="t-link" href="https://desolatemartial553.github.io/Bang-Bargain-Clothing-Store/" target="_blank" rel="noopener">Live site <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg><span class="sr-only"> for Bang Bang Bargain Clothes (opens in a new tab)</span></a></div>
+    </li>
+  </ol>
+  </div>
+</section>
+
+<!-- 4 · PROCESS -->
+<section class="slide s-process" id="process" data-title="How I work" data-field="mint" aria-labelledby="h-process">
+  <div class="proc-grid">
     <div>
-      <h2 id="about-heading">A bit about me</h2>
-      <p>I got into this by noticing something simple: a lot of great local businesses in Northfield and the wider Birmingham area still don't have a website — or have one that hasn't been touched in years. So I started building them proper ones myself, on spec, to show owners exactly what's possible.</p>
-      <p>Every project on this page is a real, working website I designed and coded by hand — HTML, CSS and JavaScript, no frameworks, no bloat, fast to load on a phone in a shop doorway. I write the copy to fit the actual business, not a generic template, and I test every link and button before I call anything finished.</p>
-      <p>If you run a business without a website — or with one that isn't pulling its weight — I'd like to build the next one.</p>
+      <h2 class="title" id="h-process" tabindex="-1" data-rise>Four stops. Every site.</h2>
+      <p class="proc-sub" data-rise>The same four steps behind every site on this page: no shortcuts, no page builders.</p>
     </div>
-    <div class="stat-grid">
-      <div class="stat"><strong>8</strong><span>Live sites built</span></div>
-      <div class="stat"><strong>100%</strong><span>Hand-coded, no builders</span></div>
-      <div class="stat"><strong>0</strong><span>Generic templates used</span></div>
+    <ol class="route">
+      <li class="stop" data-rise><h3>Research</h3><p>I look at real sites in your niche before designing anything: what competitors get right, and what they miss.</p></li>
+      <li class="stop" data-rise><h3>Design</h3><p>A layout built around your actual business, not a recoloured template. A distinct look and feel every time.</p></li>
+      <li class="stop" data-rise><h3>Build</h3><p>Hand-coded HTML, CSS and JavaScript. Fast, mobile-first, and every link tested before I call it done.</p></li>
+      <li class="stop" data-rise><h3>Launch</h3><p>Live on real hosting with a real URL, ready to send to customers. Not a mockup stuck on a hard drive.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 5 · PROOF -->
+<section class="slide s-proof" id="proof" data-title="The proof" data-field="ink" aria-labelledby="h-proof">
+  <div class="proof-grid">
+    <h2 class="lead proof-head" id="h-proof" tabindex="-1" data-rise>Built by hand, start to finish.</h2>
+    <div class="stats">
+      <p class="stat" data-rise><span class="n"><span data-count="8" aria-hidden="true">8</span><span class="sr-only">8</span></span><span class="cap">Live sites built</span></p>
+      <p class="stat" data-rise><span class="n"><span data-count="100" data-suffix="%" aria-hidden="true">100%</span><span class="sr-only">100%</span></span><span class="cap">Hand-coded, no builders</span></p>
+      <p class="stat" data-rise><span class="n"><span data-count="0" aria-hidden="true">0</span><span class="sr-only">0</span></span><span class="cap">Generic templates used</span></p>
     </div>
-    <div class="tech-badges">
-      <span class="eyebrow tech-badge">HTML5</span>
-      <span class="eyebrow tech-badge">CSS3</span>
-      <span class="eyebrow tech-badge">JavaScript (ES6)</span>
-      <span class="eyebrow tech-badge">Git &amp; GitHub</span>
-      <span class="eyebrow tech-badge">GitHub Pages</span>
-      <span class="eyebrow tech-badge">Responsive Design</span>
+    <div class="proof-body">
+      <div class="proof-copy">
+        <p data-rise>Every project on this page is a real, working website I designed and coded by hand: HTML, CSS and JavaScript, no frameworks, no bloat, fast to load on a phone in a shop doorway.</p>
+        <p data-rise>I write the copy to fit the actual business, not a generic template, and I test every link and button before I call anything finished.</p>
+      </div>
+      <ul class="tags" data-rise>
+        <li>HTML5</li><li>CSS3</li><li>JavaScript (ES6)</li><li>Git &amp; GitHub</li><li>GitHub Pages</li><li>Responsive Design</li>
+      </ul>
     </div>
   </div>
 </section>
 
-<section class="section section-alt" id="skills" aria-labelledby="skills-heading">
-  <div class="section-inner">
-    <div class="section-head">
-      <h2 id="skills-heading">What I do</h2>
-      <p>End-to-end: design, copy, code, and getting it live.</p>
-    </div>
-    <div class="skills-grid">
-      <div class="skill-card">
-        <div class="icon">01</div>
-        <h3>Web Design</h3>
-        <p>Layouts built around the business, not a recycled template — distinct look and feel per client.</p>
-      </div>
-      <div class="skill-card">
-        <div class="icon">02</div>
-        <h3>Front-End Development</h3>
-        <p>Hand-written HTML, CSS and JavaScript. Lightweight, fast-loading, no unnecessary dependencies.</p>
-      </div>
-      <div class="skill-card">
-        <div class="icon">03</div>
-        <h3>Mobile-First &amp; Responsive</h3>
-        <p>Every site is built and tested for the phone-in-hand customer first, desktop second.</p>
-      </div>
-      <div class="skill-card">
-        <div class="icon">04</div>
-        <h3>Business-Specific Copy</h3>
-        <p>I write the words to match how the business actually talks about itself — not filler text.</p>
-      </div>
-      <div class="skill-card">
-        <div class="icon">05</div>
-        <h3>Maps, Reviews &amp; Trust Signals</h3>
-        <p>Live map embeds, review sections, and owner/team touches that make a site feel real.</p>
-      </div>
-      <div class="skill-card">
-        <div class="icon">06</div>
-        <h3>Deployment</h3>
-        <p>Sites go live on real hosting with a real URL — not a mockup that stays on a hard drive.</p>
-      </div>
-      <div class="skill-card">
-        <div class="icon">07</div>
-        <h3>Research &amp; Dev Tooling</h3>
-        <p>I dig into a handful of real sites in a business's niche before designing anything, and I lean on modern AI-assisted dev tooling to move fast without cutting corners on quality.</p>
+<!-- 6 · CONTACT -->
+<section class="slide s-contact" id="contact" data-title="Contact" data-field="sky" aria-labelledby="h-contact">
+  <div class="contact-grid">
+    <div class="contact-head">
+      <h2 class="title" id="h-contact" tabindex="-1" data-rise>Want a site like these?</h2>
+      <p data-rise>Tell me about your business and I'll put together something real to look at, no obligation.</p>
+      <div class="ring-up" data-rise>
+        <a href="tel:+447881174192">or ring 07881 174192</a>
+        <a href="mailto:infiniteasura2006@gmail.com">infiniteasura2006@gmail.com</a>
       </div>
     </div>
-  </div>
-</section>
-
-<section class="section" id="process" aria-labelledby="process-heading">
-  <div class="section-inner">
-    <div class="section-head">
-      <h2 id="process-heading">How I work</h2>
-      <p>The same four steps behind every site on this page — no shortcuts, no page builders.</p>
-    </div>
-    <div class="process-grid">
-      <div class="process-step">
-        <h3>Research</h3>
-        <p>I look at real sites in your niche before designing anything — what competitors get right, and what they miss.</p>
+    <div class="contact-card">
+      <div class="postal">
+        <p class="cap to">Postcard to Ned,<br>Northfield, Birmingham</p>
+        <div class="stamp" id="stamp" aria-hidden="true"><span class="cap">Posted from</span><b class="stamp-name" id="stampName">Your business here</b><span class="cap">Northfield</span></div>
       </div>
-      <div class="process-step">
-        <h3>Design</h3>
-        <p>A layout built around your actual business, not a recoloured template — distinct look and feel every time.</p>
-      </div>
-      <div class="process-step">
-        <h3>Build</h3>
-        <p>Hand-coded HTML, CSS and JavaScript. Fast, mobile-first, and every link tested before I call it done.</p>
-      </div>
-      <div class="process-step">
-        <h3>Launch</h3>
-        <p>Live on real hosting with a real URL, ready to send to customers — not a mockup stuck on a hard drive.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="work" aria-labelledby="work-heading">
-  <div class="section-inner">
-    <div class="section-head">
-      <h2 id="work-heading">Recent work</h2>
-      <p>Eight local Northfield businesses, eight live websites — built to show what's possible.</p>
-    </div>
-    <div class="project-grid" id="projectGrid">
-      <div class="project-card featured" style="--tint:#3a7d44">
-        <div class="project-thumb">
-          <img src="https://images.pexels.com/photos/38575493/pexels-photo-38575493.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Bright Products — Hardware &amp; Home Essentials stock photography" loading="lazy" width="400" height="170">
-          <span class="thumb-badge">BP</span>
-        </div>
-        <div class="project-body">
-          <span class="project-tag">Hardware &amp; Home Essentials</span>
-          <h3>Bright Products</h3>
-          <p>Had no website at all — just a shop front in Northfield Shopping Centre. Built a full site with hours, FAQs and real reviews so shoppers can check stock before making the trip.</p>
-          <div class="project-links">
-            <a class="primary" href="https://desolatemartial553.github.io/bright-products/" target="_blank" rel="noopener" aria-label="View live site — Bright Products">Live Site <span aria-hidden="true">↗</span></a>
-            <a href="https://desolatemartial553.github.io/bright-products/#reviews" target="_blank" rel="noopener" aria-label="See reviews — Bright Products">See Reviews <span aria-hidden="true">↗</span></a>
-          </div>
-        </div>
-      </div>
-      <div class="project-card" style="--tint:#5c4b8a">
-        <div class="project-thumb">
-          <img src="https://images.pexels.com/photos/6765639/pexels-photo-6765639.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Little Italy Menswear — Menswear stock photography" loading="lazy" width="400" height="170">
-          <span class="thumb-badge">LIM</span>
-        </div>
-        <div class="project-body">
-          <span class="project-tag">Menswear · 3 Locations</span>
-          <h3>Little Italy Menswear</h3>
-          <p>Three shop locations with nothing online tying them together. Built one site listing every address, hours and collection, so a customer near any branch can find it in seconds.</p>
-          <div class="project-links">
-            <a class="primary" href="https://desolatemartial553.github.io/little-italy-menswear/" target="_blank" rel="noopener" aria-label="View live site — Little Italy Menswear">Live Site <span aria-hidden="true">↗</span></a>
-            <a href="https://desolatemartial553.github.io/little-italy-menswear/#reviews" target="_blank" rel="noopener" aria-label="See reviews — Little Italy Menswear">See Reviews <span aria-hidden="true">↗</span></a>
-          </div>
-        </div>
-      </div>
-      <div class="project-card" style="--tint:#2b6cb0">
-        <div class="project-thumb">
-          <img src="https://images.pexels.com/photos/8985667/pexels-photo-8985667.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Church Hill Autos — MOT &amp; Servicing Garage stock photography" loading="lazy" width="400" height="170">
-          <span class="thumb-badge">CHA</span>
-        </div>
-        <div class="project-body">
-          <span class="project-tag">MOT &amp; Servicing Garage</span>
-          <h3>Church Hill Autos</h3>
-          <p>A trusted local garage running entirely on word of mouth. Built a site with services, past work and reviews, so a driver searching "MOT near me" can find and trust them before calling.</p>
-          <div class="project-links">
-            <a class="primary" href="https://desolatemartial553.github.io/church-hill-autos/" target="_blank" rel="noopener" aria-label="View live site — Church Hill Autos">Live Site <span aria-hidden="true">↗</span></a>
-            <a href="https://desolatemartial553.github.io/church-hill-autos/#reviews" target="_blank" rel="noopener" aria-label="See reviews — Church Hill Autos">See Reviews <span aria-hidden="true">↗</span></a>
-          </div>
-        </div>
-      </div>
-      <div class="project-card" style="--tint:#c05621">
-        <div class="project-thumb">
-          <img src="https://images.pexels.com/photos/5017837/pexels-photo-5017837.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Aladdins Longbridge — Takeaway stock photography" loading="lazy" width="400" height="170">
-          <span class="thumb-badge">AL</span>
-        </div>
-        <div class="project-body">
-          <span class="project-tag">Takeaway</span>
-          <h3>Aladdins Longbridge</h3>
-          <p>A busy takeaway with no online presence beyond word of mouth. Built a full menu site with an ordering section, so hungry customers can browse before they call.</p>
-          <div class="project-links">
-            <a class="primary" href="https://desolatemartial553.github.io/aladdins-longbridge/" target="_blank" rel="noopener" aria-label="View live site — Aladdins Longbridge">Live Site <span aria-hidden="true">↗</span></a>
-            <a href="https://desolatemartial553.github.io/aladdins-longbridge/#reviews" target="_blank" rel="noopener" aria-label="See reviews — Aladdins Longbridge">See Reviews <span aria-hidden="true">↗</span></a>
-          </div>
-        </div>
-      </div>
-      <div class="project-card featured" style="--tint:#b83280">
-        <div class="project-thumb">
-          <img src="https://images.pexels.com/photos/7195805/pexels-photo-7195805.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Denada's D&amp;D Hairsalon — Hair Salon stock photography" loading="lazy" width="400" height="170">
-          <span class="thumb-badge">DDH</span>
-        </div>
-        <div class="project-body">
-          <span class="project-tag">Hair Salon</span>
-          <h3>Denada's D&amp;D Hairsalon</h3>
-          <p>A salon with no way for new clients to see the work or book ahead. Built a booking-focused site with a gallery and reviews, so clients can judge the standard before they ever call.</p>
-          <div class="project-links">
-            <a class="primary" href="https://desolatemartial553.github.io/dd-hairsalon/" target="_blank" rel="noopener" aria-label="View live site — Denada's D&amp;D Hairsalon">Live Site <span aria-hidden="true">↗</span></a>
-            <a href="https://desolatemartial553.github.io/dd-hairsalon/#reviews" target="_blank" rel="noopener" aria-label="See reviews — Denada's D&amp;D Hairsalon">See Reviews <span aria-hidden="true">↗</span></a>
-          </div>
-        </div>
-      </div>
-      <div class="project-card" style="--tint:#975a16">
-        <div class="project-thumb">
-          <img src="https://images.pexels.com/photos/33749073/pexels-photo-33749073.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Backyard Bar &amp; Grill — Bar &amp; Restaurant stock photography" loading="lazy" width="400" height="170">
-          <span class="thumb-badge">BBG</span>
-        </div>
-        <div class="project-body">
-          <span class="project-tag">Bar &amp; Restaurant</span>
-          <h3>Backyard Bar &amp; Grill</h3>
-          <p>A local bar and grill invisible to anyone searching online. Built a menu-forward site with an events section, so regulars and new visitors both know what's on and what's cooking.</p>
-          <div class="project-links">
-            <a class="primary" href="https://desolatemartial553.github.io/backyard-bar-grill/" target="_blank" rel="noopener" aria-label="View live site — Backyard Bar &amp; Grill">Live Site <span aria-hidden="true">↗</span></a>
-            <a href="https://desolatemartial553.github.io/backyard-bar-grill/#reviews" target="_blank" rel="noopener" aria-label="See reviews — Backyard Bar &amp; Grill">See Reviews <span aria-hidden="true">↗</span></a>
-          </div>
-        </div>
-      </div>
-      <div class="project-card" style="--tint:#4a5568">
-        <div class="project-thumb">
-          <img src="https://images.pexels.com/photos/33257996/pexels-photo-33257996.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Lani Builders — Building &amp; Construction stock photography" loading="lazy" width="400" height="170">
-          <span class="thumb-badge">LB</span>
-        </div>
-        <div class="project-body">
-          <span class="project-tag">Building &amp; Construction</span>
-          <h3>Lani Builders</h3>
-          <p>A construction firm with strong word of mouth but zero web presence to back it up. Built a trust-first site showing past projects, so a homeowner vetting builders finds proof, not silence.</p>
-          <div class="project-links">
-            <a class="primary" href="https://desolatemartial553.github.io/lani-builders/" target="_blank" rel="noopener" aria-label="View live site — Lani Builders">Live Site <span aria-hidden="true">↗</span></a>
-            <a href="https://desolatemartial553.github.io/lani-builders/#reviews" target="_blank" rel="noopener" aria-label="See reviews — Lani Builders">See Reviews <span aria-hidden="true">↗</span></a>
-          </div>
-        </div>
-      </div>
-      <div class="project-card" style="--tint:#d3652f">
-        <div class="project-thumb">
-          <img src="https://images.pexels.com/photos/26292716/pexels-photo-26292716.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Bang Bang Bargain Clothes — Clothing Shop stock photography" loading="lazy" width="400" height="170">
-          <span class="thumb-badge">BBB</span>
-        </div>
-        <div class="project-body">
-          <span class="project-tag">Clothing Shop</span>
-          <h3>Bang Bang Bargain Clothes</h3>
-          <p>A bargain clothing shop with no site to turn passing footfall into online reach. Built a bold, high-street-style site with the shop's own personality, not a generic template.</p>
-          <div class="project-links">
-            <a class="primary" href="https://desolatemartial553.github.io/Bang-Bargain-Clothing-Store/" target="_blank" rel="noopener" aria-label="View live site — Bang Bang Bargain Clothes">Live Site <span aria-hidden="true">↗</span></a>
-            <a href="https://desolatemartial553.github.io/Bang-Bargain-Clothing-Store/#reviews" target="_blank" rel="noopener" aria-label="See reviews — Bang Bang Bargain Clothes">See Reviews <span aria-hidden="true">↗</span></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section section-alt" id="contact" aria-labelledby="contact-heading">
-  <div class="section-inner">
-    <div class="contact-box">
-      <h2 id="contact-heading">Want a site like these?</h2>
-      <p>Tell me about your business and I'll put together something real to look at — no obligation.</p>
       <form class="lead-form" id="leadForm">
-        <label>Name<span class="req">*</span>
-          <input type="text" name="name" autocomplete="name" required minlength="2" maxlength="120" placeholder="Jane Doe">
-        </label>
-        <label>Email<span class="req">*</span>
-          <input type="email" name="email" autocomplete="email" required maxlength="254" placeholder="jane@example.com">
-        </label>
-        <label>Business Name
-          <input type="text" name="businessName" autocomplete="organization" maxlength="160" placeholder="Jane's Bakery (optional)">
-        </label>
-        <label>Phone
-          <input type="tel" name="phone" autocomplete="tel" maxlength="40" placeholder="07123 456789 (optional)">
-        </label>
+        <div class="row">
+          <label>Name<span class="req">*</span>
+            <input type="text" name="name" autocomplete="name" required minlength="2" maxlength="120" placeholder="Jane Doe">
+          </label>
+          <label>Email<span class="req">*</span>
+            <input type="email" name="email" autocomplete="email" required maxlength="254" placeholder="jane@example.com">
+          </label>
+        </div>
+        <div class="row">
+          <label>Business Name
+            <input type="text" name="businessName" id="businessName" autocomplete="organization" maxlength="160" placeholder="Jane's Bakery (optional)">
+          </label>
+          <label>Phone
+            <input type="tel" name="phone" autocomplete="tel" maxlength="40" placeholder="07123 456789 (optional)">
+          </label>
+        </div>
         <label>Message<span class="req">*</span>
-          <textarea name="message" required minlength="10" maxlength="5000" rows="4" placeholder="Tell me about your business, what you're looking for, and your timeline..."></textarea>
+          <textarea name="message" required minlength="10" maxlength="5000" rows="3" placeholder="Tell me about your business, what you're looking for, and your timeline..."></textarea>
         </label>
-        <button type="submit" class="btn btn-primary lead-submit">Send Me Your Details</button>
+        <button type="submit" class="cta lead-submit">Send me your details</button>
         <p class="lead-status" id="leadStatus" role="status"></p>
       </form>
-      <div class="contact-divider">or</div>
-      <div class="contact-methods">
-        <a href="mailto:infiniteasura2006@gmail.com">infiniteasura2006@gmail.com</a>
-        <a href="tel:+447881174192">07881 174192</a>
-      </div>
     </div>
   </div>
+  <div class="wm-slice" aria-hidden="true"><p class="wordmark">NED</p></div>
 </section>
 
 </main>
 
-<footer>
-  <p>Ned — Web Designer &amp; Developer</p>
-  <p style="margin-top:8px;">Birmingham, UK &middot; GitHub: <a href="https://github.com/DesolateMartial553" target="_blank" rel="noopener">DesolateMartial553</a></p>
+<footer class="foot">
+  <p>Ned: Web Designer &amp; Developer · Birmingham, UK · GitHub: <a href="https://github.com/DesolateMartial553" target="_blank" rel="noopener">DesolateMartial553</a></p>
 </footer>
 
+<div class="callbar"><a class="cta" href="tel:+447881174192"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>Call Ned 07881 174192</a></div>
+
+<div class="status" id="status">
+  <p id="statusText">01 / 06 · Cover</p>
+  <div class="bullets" id="bullets" role="group" aria-label="Pages"></div>
+  <p class="hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m5-6-6 6 6 6"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-6 6 6-6 6"/></svg>turn the page</p>
+</div>
+<div class="sr-only" id="live" aria-live="polite" role="status"></div>
+
 <script>
+(() => {
+  'use strict';
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const root = document.documentElement;
+  const body = document.body;
+  const slides = $$('main > .slide');
+  const ids = slides.map(s => s.id);
+  const titles = slides.map(s => s.dataset.title);
+  const pad = n => String(n).padStart(2, '0');
+
+  const mqMotion = matchMedia('(prefers-reduced-motion: no-preference)');
+  const mqSlide = matchMedia('(min-width:900px) and (hover:hover) and (pointer:fine) and (min-height:701px) and (prefers-reduced-motion:no-preference)');
+
+  let slideMode = false, cur = 0, turning = false, lockUntil = 0;
+
+  /* ---------- reveal plumbing ---------- */
+  slides.forEach(s => $$('[data-rise]', s).forEach((el, k) => el.style.setProperty('--i', k)));
+  let counted = false;
+  function countUp(slide) {
+    if (counted || slide.id !== 'proof' || !root.classList.contains('fx')) return;
+    counted = true;
+    $$('[data-count]', slide).forEach(el => {
+      const end = +el.dataset.count, suf = el.dataset.suffix || '';
+      if (!end) return;
+      const t0 = performance.now() + 500, dur = 1100;
+      el.textContent = '0' + suf;
+      (function tick(now) {
+        const p = Math.min(1, Math.max(0, (now - t0) / dur));
+        el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3))) + suf;
+        if (p < 1) requestAnimationFrame(tick); else el.textContent = end + suf;
+      })(performance.now());
+    });
+  }
+  const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('is-in'); countUp(e.target); io.unobserve(e.target); }
+  }), { rootMargin: '0px 0px -12% 0px', threshold: 0.08 }) : null;
+
+  function applyMotionClass() { root.classList.toggle('fx', mqMotion.matches); }
+  applyMotionClass();
+
+  /* ---------- chrome ---------- */
+  const statusText = $('#statusText'), live = $('#live'), bulletsEl = $('#bullets');
+  const bullets = slides.map((s, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('aria-label', 'Go to page ' + (i + 1) + ': ' + titles[i]);
+    b.addEventListener('click', () => go(i, 'nav'));
+    bulletsEl.appendChild(b);
+    return b;
+  });
+  const navLinks = $$('.nav a');
+  function updateChrome(announce) {
+    body.dataset.field = slides[cur].dataset.field;
+    body.dataset.slide = ids[cur];
+    statusText.textContent = pad(cur + 1) + ' / ' + pad(slides.length) + ' · ' + titles[cur];
+    bullets.forEach((b, i) => i === cur ? b.setAttribute('aria-current', 'step') : b.removeAttribute('aria-current'));
+    navLinks.forEach(a => a.getAttribute('href') === '#' + ids[cur] ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current'));
+    if (announce) live.textContent = 'Page ' + (cur + 1) + ' of ' + slides.length + ': ' + titles[cur];
+  }
+
+  /* ---------- page turns (one implementation: clip-path wipe) ---------- */
+  function setStates() {
+    slides.forEach((s, i) => {
+      s.classList.remove('is-entering', 'go', 'from-top', 'is-leaving');
+      s.classList.toggle('is-active', i === cur);
+      s.inert = i !== cur;
+      if (i === cur) s.removeAttribute('aria-hidden'); else s.setAttribute('aria-hidden', 'true');
+    });
+  }
+  function go(i, source) {
+    if (!slideMode || i < 0 || i >= slides.length) return false;
+    if (i === cur) { if (source === 'key' || source === 'nav') focusHeading(slides[cur]); return false; }
+    if (turning) return false;
+    turning = true;
+    lockUntil = performance.now() + 720;
+    const dir = i > cur ? 1 : -1, from = slides[cur], to = slides[i];
+    to.inert = false; to.removeAttribute('aria-hidden'); to.scrollTop = 0;
+    from.inert = true;
+    to.classList.add('is-entering');
+    if (dir < 0) to.classList.add('from-top');
+    from.classList.remove('is-active'); from.classList.add('is-leaving');
+    void to.offsetWidth;
+    to.classList.add('go', 'is-in');
+    cur = i;
+    updateChrome(true);
+    if (source === 'key' || source === 'nav') focusHeading(to);
+    try { history.replaceState(null, '', '#' + ids[i]); } catch (e) {}
+    countUp(to);
+    setTimeout(() => {
+      to.classList.remove('is-entering', 'go', 'from-top');
+      to.classList.add('is-active');
+      from.classList.remove('is-leaving', 'is-in');
+      from.setAttribute('aria-hidden', 'true');
+      turning = false;
+    }, 720);
+    return true;
+  }
+  function focusHeading(slide) {
+    const h = $('h1,h2', slide);
+    if (h) h.focus({ preventScroll: true });
+  }
+
+  /* ---------- ticket list (guide) ---------- */
+  const tickets = $$('.ticket');
+  const heads = tickets.map(t => $('.t-head', t));
+  let act = 0;
+  function setTicket(n, focus) {
+    act = n;
+    tickets.forEach((t, k) => {
+      t.classList.toggle('is-on', k === n);
+      if (slideMode) { heads[k].setAttribute('aria-selected', String(k === n)); heads[k].tabIndex = k === n ? 0 : -1; }
+    });
+    if (focus) heads[n].focus({ preventScroll: true });
+  }
+  tickets.forEach((t, k) => {
+    heads[k].addEventListener('click', () => slideMode && setTicket(k));
+    heads[k].addEventListener('focus', () => slideMode && setTicket(k));
+    t.addEventListener('pointerenter', e => { if (slideMode && e.pointerType === 'mouse') setTicket(k); });
+    heads[k].addEventListener('keydown', e => {
+      if (!slideMode) return;
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault(); e.stopPropagation();
+        setTicket(Math.min(tickets.length - 1, Math.max(0, k + (e.key === 'ArrowDown' ? 1 : -1))), true);
+      }
+    });
+  });
+  function ticketA11y(on) {
+    const ol = $('#tickets');
+    if (on) {
+      ol.setAttribute('role', 'tablist'); ol.setAttribute('aria-orientation', 'vertical'); ol.setAttribute('aria-label', 'Eight Northfield sites');
+      tickets.forEach((t, k) => { t.setAttribute('role', 'presentation'); heads[k].setAttribute('role', 'tab'); });
+      setTicket(act);
+    } else {
+      ['role', 'aria-orientation', 'aria-label'].forEach(a => ol.removeAttribute(a));
+      tickets.forEach((t, k) => { t.removeAttribute('role'); ['role', 'aria-selected', 'tabindex'].forEach(a => heads[k].removeAttribute(a)); });
+    }
+  }
+
+  /* ---------- mode switch ---------- */
+  let preloaded = false;
+  function preloadAll() {
+    if (preloaded) return; preloaded = true;
+    const run = () => $$('img[src^="assets/work/"]').forEach(img => {
+      img.loading = 'eager';
+      const p = new Image(); p.decoding = 'async'; p.src = img.getAttribute('src');
+    });
+    ('requestIdleCallback' in window) ? requestIdleCallback(run, { timeout: 2500 }) : setTimeout(run, 1200);
+  }
+  function fromHash() {
+    const i = ids.indexOf(location.hash.slice(1));
+    return i >= 0 ? i : 0;
+  }
+  function enterSlides() {
+    if (slideMode) return;
+    slideMode = true;
+    io && slides.forEach(s => io.unobserve(s));
+    cur = fromHash();
+    root.classList.add('slides');
+    slides.forEach(s => s.classList.remove('is-in'));
+    setStates(); ticketA11y(true); updateChrome(false);
+    preloadAll();
+    window.scrollTo(0, 0);
+    requestAnimationFrame(() => requestAnimationFrame(() => { slides[cur].classList.add('is-in'); countUp(slides[cur]); }));
+  }
+  function leaveSlides() {
+    if (!slideMode) return;
+    slideMode = false;
+    const keep = cur;
+    root.classList.remove('slides');
+    slides.forEach(s => { s.classList.remove('is-active', 'is-leaving', 'is-entering', 'go', 'from-top'); s.inert = false; s.removeAttribute('aria-hidden'); });
+    ticketA11y(false);
+    body.dataset.field = 'sky'; body.dataset.slide = ids[keep];
+    revealStacked();
+    slides[keep].scrollIntoView({ block: 'start', behavior: 'auto' });
+  }
+  function revealStacked() {
+    slides.forEach(s => { if (!io) s.classList.add('is-in'); else if (!s.classList.contains('is-in')) io.observe(s); });
+  }
+  function syncMode() { applyMotionClass(); mqSlide.matches ? enterSlides() : leaveSlides(); }
+  mqSlide.addEventListener('change', syncMode);
+  mqMotion.addEventListener('change', syncMode);
+  if (!mqSlide.matches) revealStacked();
+  syncMode();
+
+  /* ---------- wheel: one page per gesture, momentum guard ---------- */
+  let acc = 0, lastEvt = 0, ignoring = false;
+  function nativeScrollable(el, dy) {
+    if (!/auto|scroll/.test(getComputedStyle(el).overflowY)) return false;
+    if (el.scrollHeight <= el.clientHeight + 2) return false;
+    return dy > 0 ? el.scrollTop + el.clientHeight < el.scrollHeight - 2 : el.scrollTop > 2;
+  }
+  addEventListener('wheel', e => {
+    if (!slideMode || e.ctrlKey) return;
+    const now = performance.now(), gap = now - lastEvt;
+    lastEvt = now;
+    const target = e.target;
+    if (target && target.closest && target.closest('textarea, input')) return;
+    if (nativeScrollable(slides[cur], e.deltaY)) { ignoring = true; return; }
+    e.preventDefault();
+    if (ignoring) {
+      if (gap > 150 && now >= lockUntil) { ignoring = false; acc = 0; } else return;
+    }
+    if (gap > 150) acc = 0;
+    acc += e.deltaY;
+    if (Math.abs(acc) > 40) {
+      const dir = acc > 0 ? 1 : -1;
+      acc = 0;
+      if (turning) return;
+      ignoring = true;
+      go(cur + dir, 'wheel');
+    }
+  }, { passive: false });
+
+  /* ---------- keys ---------- */
+  addEventListener('keydown', e => {
+    if (!slideMode || e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) return;
+    const t = e.target, tag = t && t.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (t && t.isContentEditable)) return;
+    const k = e.key;
+    let dir = 0, abs = -1, scrolly = false;
+    if (k === 'ArrowRight') dir = 1;
+    else if (k === 'ArrowLeft') dir = -1;
+    else if (k === 'PageDown') { dir = 1; scrolly = true; }
+    else if (k === 'PageUp') { dir = -1; scrolly = true; }
+    else if (k === 'ArrowDown') { dir = 1; scrolly = true; }
+    else if (k === 'ArrowUp') { dir = -1; scrolly = true; }
+    else if (k === ' ' || k === 'Spacebar') {
+      if (tag === 'BUTTON' || tag === 'A' || (t && t.getAttribute && t.getAttribute('role') === 'tab')) return;
+      dir = e.shiftKey ? -1 : 1; scrolly = true;
+    }
+    else if (k === 'Home') abs = 0;
+    else if (k === 'End') abs = slides.length - 1;
+    else return;
+    if (scrolly && nativeScrollable(slides[cur], dir)) return;
+    if (menuOpen) return;
+    e.preventDefault();
+    go(abs >= 0 ? abs : cur + dir, 'key');
+  });
+
+  /* ---------- anchors ---------- */
+  document.addEventListener('click', e => {
+    const a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const i = ids.indexOf(a.getAttribute('href').slice(1));
+    if (a.closest('#menu')) setMenu(false, false);
+    if (i < 0 || !slideMode) return;
+    e.preventDefault();
+    go(i, 'nav');
+  });
+  addEventListener('hashchange', () => {
+    if (!slideMode) return;
+    const i = ids.indexOf(location.hash.slice(1));
+    if (i >= 0) go(i, 'nav');
+  });
+
+  /* ---------- mobile menu ---------- */
+  const menu = $('#menu'), menuBtn = $('#menuBtn');
+  let menuOpen = false;
+  const behind = [$('#main'), $('.foot'), $('.callbar'), $('.skip')];
+  function setMenu(open, refocus) {
+    if (open === menuOpen) return;
+    menuOpen = open;
+    menu.classList.toggle('is-open', open);
+    menu.inert = !open;
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.textContent = open ? 'Close' : 'Menu';
+    behind.forEach(el => { if (el) el.inert = open; });
+    if (open) { const f = $('a', menu); f && f.focus(); }
+    else if (refocus !== false) menuBtn.focus();
+  }
+  menuBtn.addEventListener('click', () => setMenu(!menuOpen));
+  addEventListener('keydown', e => { if (e.key === 'Escape' && menuOpen) setMenu(false); });
+  matchMedia('(min-width:900px)').addEventListener('change', e => { if (e.matches) setMenu(false, false); });
+
+  /* ---------- live stamp ---------- */
+  const stampName = $('#stampName'), stamp = $('#stamp'), biz = $('#businessName');
+  let bumpT;
+  biz.addEventListener('input', () => {
+    const v = biz.value.trim().replace(/\s+/g, ' ').slice(0, 40);
+    stampName.textContent = v || 'Your business here';
+    stamp.classList.remove('bump'); void stamp.offsetWidth; stamp.classList.add('bump');
+    clearTimeout(bumpT); bumpT = setTimeout(() => stamp.classList.remove('bump'), 400);
+  });
+})();
+
   // Lead form — submits straight to the Replit-hosted API
   const leadForm = document.getElementById('leadForm');
   const leadStatus = document.getElementById('leadStatus');
@@ -668,6 +1030,8 @@
       leadStatus.textContent = "Thanks — I've got your details and will be in touch within 24 hours.";
       leadStatus.className = 'lead-status success';
       leadForm.reset();
+      const stampReset = document.getElementById('stampName');
+      if (stampReset) stampReset.textContent = 'Your business here';
     } catch (err) {
       leadStatus.textContent = (err instanceof TypeError)
         ? "Couldn't reach the server — please email me directly instead."
@@ -677,52 +1041,6 @@
       submitBtn.setAttribute('aria-busy', 'false');
       leadForm.dataset.submitting = 'false';
     }
-  });
-
-  // Mobile menu
-  const toggle = document.getElementById('menuToggle');
-  const navList = document.getElementById('navList');
-  const menuScrim = document.getElementById('menuScrim');
-  const mobileMenuMq = window.matchMedia('(max-width:820px)');
-  function setMenuOpen(open){
-    navList.classList.toggle('open', open);
-    menuScrim.classList.toggle('open', open);
-    toggle.setAttribute('aria-expanded', String(open));
-    // Only actually hide the list from focus/AT while it's the collapsed
-    // mobile menu; on wider viewports it's a normal always-visible nav.
-    const hideFromAT = mobileMenuMq.matches && !open;
-    navList.toggleAttribute('inert', hideFromAT);
-    navList.setAttribute('aria-hidden', String(hideFromAT));
-  }
-  setMenuOpen(false); // ensure collapsed mobile menu starts correctly hidden from focus/AT
-  toggle.addEventListener('click', () => setMenuOpen(!navList.classList.contains('open')));
-  menuScrim.addEventListener('click', () => setMenuOpen(false));
-  // Close on any in-page nav click, including the logo — not just #navList's
-  // own links — so tapping "Ned." while the mobile menu is open doesn't
-  // leave the dropdown stuck open over the hero.
-  document.querySelectorAll('header a[href^="#"]').forEach(a => a.addEventListener('click', () => setMenuOpen(false)));
-
-  // Header-aware smooth scroll (accounts for sticky header height)
-  const header = document.querySelector('header');
-  // Keep --header-h in sync with the header's real rendered height, so the
-  // CSS-only scroll-margin-top / hero padding (used by non-click hash
-  // navigation) can't drift from what this click-driven scroll measures.
-  function syncHeaderHeight(){
-    document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
-  }
-  syncHeaderHeight();
-  window.addEventListener('resize', syncHeaderHeight);
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', function(e){
-      const id = this.getAttribute('href').slice(1);
-      const target = document.getElementById(id);
-      if(!target) return;
-      e.preventDefault();
-      const headerH = header.offsetHeight;
-      const top = target.getBoundingClientRect().top + window.pageYOffset - headerH + 1;
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      window.scrollTo({top, behavior: reduceMotion ? 'auto' : 'smooth'});
-    });
   });
 </script>
 
