@@ -109,18 +109,28 @@ h1.lead mark{background:linear-gradient(var(--cream),var(--cream)) 0 88%/0% .42e
 @keyframes drift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(18px,-22px) scale(1.08)}}
 
 .stage{position:relative;width:100%;max-width:560px;aspect-ratio:1/1.02;justify-self:center}
-.fl{position:absolute;transform:translate(calc(var(--mx,0)*var(--kx)),calc(var(--my,0)*var(--ky)));transition:transform .8s var(--out)}
-.fl-1{top:0;left:4%;width:74%;--kx:12px;--ky:10px;z-index:1}
-.fl-2{top:30%;right:0;width:70%;--kx:-20px;--ky:-14px;z-index:2}
-.fl-3{bottom:0;left:10%;width:64%;--kx:16px;--ky:-20px;z-index:3}
-.fl-d{transform:translate(var(--dx,0),var(--dy,0)) rotate(calc(var(--r,0deg) + var(--rz,0deg)));transition:transform .75s var(--pop);touch-action:pan-y;user-select:none}
-.fl-1 .fl-d{--r:-5deg}.fl-2 .fl-d{--r:4deg}.fl-3 .fl-d{--r:-2deg}
+/* the three windows are real links; the cascade overlaps like a held hand of cards */
+.fl{position:absolute;display:block;color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent;z-index:var(--fz,1);transform:translate(calc(var(--mx,0)*var(--kx)),calc(var(--my,0)*var(--ky)));transition:transform .8s var(--out)}
+.fl-1{top:3%;left:2%;width:70%;--kx:12px;--ky:10px;--fz:1;--r:-6deg}
+.fl-2{top:21%;right:2%;width:72%;--kx:-20px;--ky:-14px;--fz:2;--r:4deg}
+.fl-3{top:44%;left:4%;width:70%;--kx:16px;--ky:-20px;--fz:3;--r:-2.5deg}
+.fl-d{display:block;transform:translate(var(--dx,0),var(--dy,0)) rotate(calc(var(--r,0deg) + var(--rz,0deg)));transition:transform .75s var(--pop),translate .45s var(--out);touch-action:pan-y;user-select:none}
+.fl-1 .fl-d{--r:-6deg}.fl-2 .fl-d{--r:4deg}.fl-3 .fl-d{--r:-2.5deg}
 .fl-d.drag{transition:none;cursor:grabbing;filter:drop-shadow(0 22px 24px rgba(43,33,71,.3))}
-.fl-b{animation:float 7s ease-in-out infinite alternate}
+.fl-b{display:block;animation:float 7s ease-in-out infinite alternate}
 .fl-2 .fl-b{animation-duration:9s;animation-delay:-3s}.fl-3 .fl-b{animation-duration:8s;animation-delay:-5s}
 @keyframes float{0%{transform:translateY(-6px)}100%{transform:translateY(8px)}}
 @media (hover:hover) and (pointer:fine){.fl-d{cursor:grab}}
-.bw{background:#fff;border-radius:18px;overflow:hidden;box-shadow:var(--sh)}
+/* hover / keyboard focus: front, straight, lifted, with the "open" pill */
+.fl:hover,.fl:focus-visible{z-index:30}
+.fl:focus-visible{outline:none}
+.fl:hover .bw,.fl:focus-visible .bw{box-shadow:var(--sh-up)}
+.fl:focus-visible .bw{outline:3px solid var(--ink);outline-offset:4px}
+.fl:hover .fl-d,.fl:focus-visible .fl-d{--r:0deg;translate:0 -10px}
+.fl .badge{top:auto;bottom:10px;right:10px;transform-origin:100% 100%;pointer-events:none}
+@media (hover:hover) and (pointer:fine){.fl:hover .badge{transform:scale(1) rotate(0)}}
+.fl:focus-visible .badge{transform:scale(1) rotate(0)}
+.bw{position:relative;background:#fff;border-radius:18px;overflow:hidden;box-shadow:var(--sh);transition:box-shadow .3s var(--out)}
 .bw-bar{display:flex;align-items:center;gap:6px;height:32px;padding:0 12px;background:#F2E8D8}
 .bw-bar i{width:10px;height:10px;border-radius:50%}
 .bw-bar i:nth-child(1){background:var(--pink)}.bw-bar i:nth-child(2){background:var(--butter)}.bw-bar i:nth-child(3){background:var(--mint)}
@@ -133,7 +143,22 @@ h1.lead mark{background:linear-gradient(var(--cream),var(--cream)) 0 88%/0% .42e
 @keyframes spin{to{transform:rotate(360deg)}}
 @media (max-width:899px){
   .stage{aspect-ratio:1/.95;max-width:420px}
+  .fl-1{width:66%}
+  .fl-2{top:19%;width:68%}
+  .fl-3{top:40%;width:66%}
   .badge-ring{width:92px;height:92px;right:0}
+}
+
+/* scroll: hero leaves, the hand of cards fans apart (never fights the drag transform) */
+@keyframes fan-a{from{translate:0 0;rotate:0deg}to{translate:-18px -34px;rotate:-8deg}}
+@keyframes fan-b{from{translate:0 0;rotate:0deg}to{translate:26px -8px;rotate:7deg}}
+@keyframes fan-c{from{translate:0 0;rotate:0deg}to{translate:-8px 30px;rotate:-6deg}}
+@supports (animation-timeline: view()){
+  @media (prefers-reduced-motion: no-preference) and (min-width:900px){
+    .stage{view-timeline-name:--stage;view-timeline-axis:block}
+    .fl{animation-timing-function:linear;animation-fill-mode:both;animation-timeline:--stage;animation-range:exit 0% exit 85%}
+    .fl-1{animation-name:fan-a}.fl-2{animation-name:fan-b}.fl-3{animation-name:fan-c}
+  }
 }
 
 /* marquee */
@@ -154,11 +179,10 @@ h1.lead mark{background:linear-gradient(var(--cream),var(--cream)) 0 88%/0% .42e
 .chip:hover{transform:translateY(-3px) rotate(-2deg)}
 .chip:active{transform:scale(.95)}
 .chip[aria-pressed="true"]{background:var(--ink);color:var(--cream)}
-.bento{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--g);perspective:1400px}
-.card{grid-column:span 4;position:relative;display:flex;transition:opacity .28s var(--out),transform .28s var(--out)}
+.bento{position:relative;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--g);perspective:1400px}
+.card{--nudge:0px;--rot:0deg;grid-column:span 4;position:relative;display:flex}
+.card[hidden]{display:none}
 .card.feat{grid-column:span 6}
-.bento.flat .card.feat{grid-column:span 4}
-.card.out{opacity:0;transform:scale(.9)}
 .tilt{position:relative;flex:1;display:flex;flex-direction:column;gap:16px;padding:14px 14px 22px;border-radius:var(--r-card);background:#FFFDF8;box-shadow:var(--sh);transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .5s var(--out),box-shadow .3s}
 .tilt.hot{transition:transform .12s linear,box-shadow .3s;box-shadow:var(--sh-up)}
 .glare{position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.6),transparent 55%);transition:opacity .3s}
@@ -181,7 +205,47 @@ h1.lead mark{background:linear-gradient(var(--cream),var(--cream)) 0 88%/0% .42e
 .card:has(.c-link:focus-visible) .badge{transform:scale(1)}
 @media (hover:hover) and (pointer:fine){.tilt:hover .badge{transform:scale(1) rotate(0)}.c-link:hover .i{transform:translate(3px,-3px)}}
 .c-link .i{width:18px;height:18px;transition:transform .25s var(--pop)}
-@media (max-width:1099px){.card,.card.feat,.bento.flat .card.feat{grid-column:span 6}}
+
+/* desktop only: staggered masonry rhythm, alternating wide(7) / narrow(5) pairs */
+@media (min-width:1100px){
+  .bento{padding-bottom:clamp(12px,2.5vw,36px)}
+  .bento .card{grid-column:span 5;transform:translateY(var(--nudge)) rotate(var(--rot))}
+  .bento .card:nth-child(1),.bento .card:nth-child(4),.bento .card:nth-child(5),.bento .card:nth-child(8){grid-column:span 7}
+  .bento .card:nth-child(1){--nudge:0px;--rot:-.8deg}
+  .bento .card:nth-child(2){--nudge:46px;--rot:.7deg}
+  .bento .card:nth-child(3){--nudge:22px;--rot:.9deg}
+  .bento .card:nth-child(4){--nudge:0px;--rot:-.6deg}
+  .bento .card:nth-child(5){--nudge:0px;--rot:.7deg}
+  .bento .card:nth-child(6){--nudge:46px;--rot:-.9deg}
+  .bento .card:nth-child(7){--nudge:22px;--rot:-.7deg}
+  .bento .card:nth-child(8){--nudge:0px;--rot:.8deg}
+  .bento.flat .card{grid-column:span 6;--nudge:0px;--rot:0deg}
+}
+
+/* scroll-driven entry + screenshot parallax (progressive: IO reveal is the fallback) */
+@keyframes card-in{
+  from{opacity:0;transform:translateY(calc(var(--nudge,0px) + 46px)) rotate(calc(var(--rot,0deg) + 1.3deg)) scale(.94);clip-path:inset(4% 3% 12% 3% round var(--r-card))}
+  to{opacity:1;transform:translateY(var(--nudge,0px)) rotate(var(--rot,0deg)) scale(1);clip-path:inset(0 0 0 0 round var(--r-card))}
+}
+@keyframes shot-drift{from{transform:translateY(-1.5%)}to{transform:translateY(1.5%)}}
+@supports (animation-timeline: view()){
+  .rv-ready .card.rv.in{opacity:1;transform:translateY(var(--nudge,0px)) rotate(var(--rot,0deg))}
+  @media (prefers-reduced-motion: no-preference) and (min-width:900px){
+    .card{animation:card-in 1s linear backwards;animation-timeline:view();animation-range:entry 0% cover 35%}
+    .c-shot .bw img{animation:shot-drift 1s linear both;animation-timeline:view();animation-range:cover 0% cover 100%}
+  }
+}
+
+/* peek: the live screenshot slowly pans on hover / keyboard focus */
+@media (prefers-reduced-motion: no-preference) and (min-width:900px){
+  .c-shot .bw img{scale:1.09;transition:translate 6s cubic-bezier(.22,.61,.36,1)}
+  .card:has(.c-link:focus-visible) .bw img{translate:0 -2.2%}
+}
+@media (prefers-reduced-motion: no-preference) and (min-width:900px) and (hover:hover) and (pointer:fine){
+  .tilt:hover .bw img{translate:0 -2.2%}
+}
+
+@media (max-width:1099px){.card,.card.feat,.bento.flat .card{grid-column:span 6}}
 @media (max-width:899px){
   .chips{flex-wrap:nowrap;overflow-x:auto;margin-inline:-20px;padding:6px 20px 14px;scrollbar-width:none}
   .chip{flex:none}
@@ -356,11 +420,11 @@ h1.lead mark{background:linear-gradient(var(--cream),var(--cream)) 0 88%/0% .42e
         <a class="txt-link" href="#work">See the eight sites <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></a>
       </div>
     </div>
-    <div class="stage" id="stage" aria-hidden="true">
-      <div class="fl fl-1"><div class="fl-d"><div class="fl-b"><div class="bw"><div class="bw-bar"><i></i><i></i><i></i><span class="bw-url">aladdins-longbridge</span></div><img src="assets/work/aladdins-longbridge.webp" width="960" height="600" decoding="async" alt="" draggable="false"></div></div></div></div>
-      <div class="fl fl-2"><div class="fl-d"><div class="fl-b"><div class="bw"><div class="bw-bar"><i></i><i></i><i></i><span class="bw-url">lani-builders</span></div><img src="assets/work/lani-builders.webp" width="960" height="600" decoding="async" alt="" draggable="false"></div></div></div></div>
-      <div class="fl fl-3"><div class="fl-d"><div class="fl-b"><div class="bw"><div class="bw-bar"><i></i><i></i><i></i><span class="bw-url">dd-hairsalon</span></div><img src="assets/work/dd-hairsalon.webp" width="960" height="600" decoding="async" alt="" draggable="false"></div></div></div></div>
-      <div class="badge-ring">
+    <div class="stage" id="stage">
+      <a class="fl fl-1" href="https://desolatemartial553.github.io/aladdins-longbridge/" target="_blank" rel="noopener" draggable="false" aria-label="aladdins-longbridge: open the sample site (opens in a new tab)"><div class="fl-d"><div class="fl-b"><div class="bw"><div class="bw-bar"><i></i><i></i><i></i><span class="bw-url">aladdins-longbridge</span></div><img src="assets/work/aladdins-longbridge.webp" width="960" height="600" decoding="async" alt="" draggable="false"><span class="badge" aria-hidden="true">Open live site <svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div></div></div></a>
+      <a class="fl fl-2" href="https://desolatemartial553.github.io/lani-builders/" target="_blank" rel="noopener" draggable="false" aria-label="lani-builders: open the sample site (opens in a new tab)"><div class="fl-d"><div class="fl-b"><div class="bw"><div class="bw-bar"><i></i><i></i><i></i><span class="bw-url">lani-builders</span></div><img src="assets/work/lani-builders.webp" width="960" height="600" decoding="async" alt="" draggable="false"><span class="badge" aria-hidden="true">Open live site <svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div></div></div></a>
+      <a class="fl fl-3" href="https://desolatemartial553.github.io/dd-hairsalon/" target="_blank" rel="noopener" draggable="false" aria-label="dd-hairsalon: open the sample site (opens in a new tab)"><div class="fl-d"><div class="fl-b"><div class="bw"><div class="bw-bar"><i></i><i></i><i></i><span class="bw-url">dd-hairsalon</span></div><img src="assets/work/dd-hairsalon.webp" width="960" height="600" decoding="async" alt="" draggable="false"><span class="badge" aria-hidden="true">Open live site <svg class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div></div></div></a>
+      <div class="badge-ring" aria-hidden="true">
         <svg viewBox="0 0 120 120"><defs><path id="ringPath" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs><text><textPath href="#ringPath" textLength="274" lengthAdjust="spacing">MADE IN NORTHFIELD • B31 • BIRMINGHAM •</textPath></text></svg>
         <img src="assets/ned-brand-mark-96.png" width="96" height="96" alt="">
       </div>
@@ -522,10 +586,16 @@ h1.lead mark{background:linear-gradient(var(--cream),var(--cream)) 0 88%/0% .42e
   /* ---- reveals (content stays visible unless this script runs) ---- */
   if (!rm && 'IntersectionObserver' in window) {
     root.classList.add('rv-ready');
+    /* scroll-driven CSS (work cards) and the IO reveal must not both run */
+    const sda = !!(window.CSS && CSS.supports && CSS.supports('animation-timeline: view()'));
     const io = new IntersectionObserver((es) => es.forEach((e) => {
       if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
     }), { threshold: .12, rootMargin: '0px 0px -6% 0px' });
-    $$('.sheet').forEach((sec) => $$('.rv', sec).forEach((el, i) => { el.style.setProperty('--d', Math.min(i % 8, 6)); io.observe(el); }));
+    $$('.sheet').forEach((sec) => $$('.rv', sec).forEach((el, i) => {
+      el.style.setProperty('--d', Math.min(i % 8, 6));
+      if (sda && el.classList.contains('card')) { el.classList.add('in'); return; }
+      io.observe(el);
+    }));
     $$('.cover .rv').forEach((el, i) => el.style.setProperty('--d', i + 1));
   }
 
@@ -618,16 +688,18 @@ h1.lead mark{background:linear-gradient(var(--cream),var(--cream)) 0 88%/0% .42e
 
     let z = 10;
     $$('.fl-d', cover).forEach((el) => {
-      let sx = 0, sy = 0, last = 0, id = null;
+      const link = el.closest('a');
+      let sx = 0, sy = 0, last = 0, id = null, moved = false;
       el.addEventListener('pointerdown', (e) => {
         if (e.button !== 0) return;
-        id = e.pointerId; sx = e.clientX; sy = e.clientY; last = e.clientX;
+        id = e.pointerId; sx = e.clientX; sy = e.clientY; last = e.clientX; moved = false;
         el.setPointerCapture(id); el.classList.add('drag');
-        el.parentElement.style.zIndex = ++z;
+        el.parentElement.style.setProperty('--fz', ++z);
         cur.classList.add('grab');
       });
       el.addEventListener('pointermove', (e) => {
         if (e.pointerId !== id) return;
+        if (!moved && Math.abs(e.clientX - sx) + Math.abs(e.clientY - sy) > 5) moved = true;
         el.style.setProperty('--dx', (e.clientX - sx) + 'px');
         el.style.setProperty('--dy', (e.clientY - sy) + 'px');
         el.style.setProperty('--rz', clamp((e.clientX - last) * .9, -8, 8) + 'deg');
@@ -640,6 +712,11 @@ h1.lead mark{background:linear-gradient(var(--cream),var(--cream)) 0 88%/0% .42e
       };
       el.addEventListener('pointerup', end);
       el.addEventListener('pointercancel', end);
+      /* a drag must not open the sample site: a plain click or Enter still does */
+      if (link) link.addEventListener('click', (e) => {
+        if (!moved || e.detail === 0) return;
+        e.preventDefault(); e.stopPropagation(); moved = false;
+      });
     });
   }
 
@@ -674,27 +751,94 @@ h1.lead mark{background:linear-gradient(var(--cream),var(--cream)) 0 88%/0% .42e
     });
   }
 
-  /* ---- work filter ---- */
+  /* ---- work filter: FLIP from old rect to new rect ---- */
   const bento = $('#bento'), chips = $$('.chip'), cards = $$('.card', bento), msg = $('#filterMsg');
-  chips.forEach((c) => c.addEventListener('click', () => {
-    const f = c.dataset.f;
-    chips.forEach((x) => x.setAttribute('aria-pressed', x === c));
-    bento.classList.toggle('flat', f !== 'all');
+  const tiltOf = (c) => c.querySelector('.tilt');
+  const ghosts = new Set();
+  const dropGhost = (c) => {
+    ghosts.delete(c);
+    c.hidden = true;
+    ['position', 'left', 'top', 'width', 'height', 'pointerEvents', 'zIndex', 'transform'].forEach((k) => { c.style[k] = ''; });
+  };
+  const settleGhosts = () => {
+    ghosts.forEach((c) => { tiltOf(c).getAnimations().forEach((a) => a.cancel()); dropGhost(c); });
+  };
+
+  chips.forEach((chip) => chip.addEventListener('click', () => {
+    const f = chip.dataset.f;
+    chips.forEach((x) => x.setAttribute('aria-pressed', x === chip));
+    settleGhosts();
+
+    const want = (c) => f === 'all' || c.dataset.cat === f;
     let n = 0;
-    cards.forEach((card) => {
-      const show = f === 'all' || card.dataset.cat === f;
-      if (show) {
-        n++;
-        card.hidden = false;
-        card.classList.add('in');
-        if (rm) card.classList.remove('out');
-        else { void card.offsetWidth; card.classList.remove('out'); }
-      } else if (rm) { card.hidden = true; }
-      else {
-        card.classList.add('out');
-        setTimeout(() => { if (card.classList.contains('out')) card.hidden = true; }, 280);
+    cards.forEach((c) => { if (want(c)) n++; });
+
+    if (rm) {
+      cards.forEach((c) => { c.hidden = !want(c); if (!c.hidden) c.classList.add('in'); });
+      bento.classList.toggle('flat', f !== 'all');
+      msg.textContent = `Showing ${n} of 8 sites`;
+      return;
+    }
+
+    /* 1. first: where every visible card sits now */
+    const before = new Map();
+    cards.forEach((c) => { if (!c.hidden) before.set(c, tiltOf(c).getBoundingClientRect()); });
+
+    /* 2. leaving cards become out-of-flow ghosts so the rest can move into their space
+          (measure every one of them first: the grid reflows as each leaves) */
+    const leaving = cards.filter((c) => !want(c) && before.has(c))
+      .map((c) => ({ c, L: c.offsetLeft, T: c.offsetTop, W: c.offsetWidth, H: c.offsetHeight }));
+    leaving.forEach(({ c, L, T, W, H }) => {
+      c.style.position = 'absolute';
+      c.style.left = L + 'px';
+      c.style.top = T + 'px';
+      c.style.width = W + 'px';
+      c.style.height = H + 'px';
+      c.style.pointerEvents = 'none';
+      c.style.zIndex = '1';
+      ghosts.add(c);
+    });
+
+    /* 3. toggle the new layout */
+    cards.forEach((c) => {
+      if (!want(c)) return;
+      c.hidden = false;
+      c.classList.add('in');
+    });
+    bento.classList.toggle('flat', f !== 'all');
+
+    /* 4. last: animate every surviving card from its old rect to its new one */
+    cards.forEach((c) => {
+      if (c.hidden || ghosts.has(c)) return;
+      const tilt = tiltOf(c);
+      const now = tilt.getBoundingClientRect();
+      const was = before.get(c);
+      if (was) {
+        const dx = was.left - now.left, dy = was.top - now.top;
+        const s = now.width ? was.width / now.width : 1;
+        if (Math.abs(dx) > .5 || Math.abs(dy) > .5 || Math.abs(s - 1) > .01) {
+          tilt.animate([
+            { transform: `translate(${dx}px, ${dy}px) scale(${s})` },
+            { transform: 'translate(0px, 0px) scale(1)' }
+          ], { duration: 450, easing: 'cubic-bezier(.215,.61,.355,1)' });
+        }
+      } else {
+        tilt.animate([
+          { opacity: 0, transform: 'translateY(16px) scale(.96)' },
+          { opacity: 1, transform: 'none' }
+        ], { duration: 450, delay: 60, easing: 'cubic-bezier(.215,.61,.355,1)', fill: 'backwards' });
       }
     });
+
+    /* 5. leaving ghosts shrink and fade, then leave the layout for good */
+    ghosts.forEach((c) => {
+      const a = tiltOf(c).animate([
+        { opacity: 1, transform: 'translateY(0) scale(1)' },
+        { opacity: 0, transform: 'translateY(-8px) scale(.9)' }
+      ], { duration: 380, easing: 'cubic-bezier(.215,.61,.355,1)', fill: 'forwards' });
+      a.onfinish = () => { a.cancel(); dropGhost(c); };
+    });
+
     msg.textContent = `Showing ${n} of 8 sites`;
   }));
 

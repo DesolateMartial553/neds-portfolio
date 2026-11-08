@@ -34,7 +34,7 @@ A friendly, playful studio a small-business owner would be glad to walk into. In
 ## 6. Layout, desktop (1440x900)
 Normal vertical scroll; five rounded colour sheets on a cream page, a floating pill header.
 1. **Cover** (butter). Left: greeting line, h1 "Websites for businesses that don't have one yet.", one sentence, **one primary CTA "Call Ned 07881 174192"** + a text link "See the eight sites". Right: a stage of three overlapping **browser windows** (Aladdins, Lani, D&D) on slow drift, parallaxed by cursor depth, **draggable** (spring back with overshoot on release). Soft blobs behind follow the cursor. A **marquee** of the eight business names runs under the sheet.
-2. **Work** (sky). Title "Eight Northfield sites that had none." + note "Built on spec, to show owners what's possible." **Filter chips** (All · Food & drink · Trades · Shops & beauty) with `aria-pressed`. **Bento grid**: Aladdins + Church Hill span 6, the other six span 4; filtering makes all equal. Each card: browser-window screenshot, name, trade, style tag, story, one link "Live site". Hover/focus: 3D tilt toward the pointer + glare + "Open live site" badge pops; the whole card is the link target (stretched).
+2. **Work** (sky). Title "Eight Northfield sites that had none." + note "Built on spec, to show owners what's possible." **Filter chips** (All · Food & drink · Trades · Shops & beauty) with `aria-pressed`. **Staggered masonry** (v3.1): alternating 7/5-column pairs, odd cards nudged down with slight rotation; cards enter on scroll (CSS `animation-timeline: view()`, IO fallback) with screenshot parallax and a slow hover "peek"; filtering reflows with FLIP. Each card: browser-window screenshot, name, trade, style tag, story, one link "Live site". Hover/focus: 3D tilt toward the pointer + glare + "Open live site" badge pops; the whole card is the link target (stretched).
 3. **Process** (mint). Title "Four stops. Every site." Four **expanding cards** (Research, Design, Build, Launch): the hovered/focused card grows (flex), others fold to icon + title; each has its own icon and tone. One open at a time, first open by default.
 4. **About / proof** (lilac). "Built by hand, start to finish." Three **clay stat tiles** counting up (8 live sites · 100% hand-coded · 0 templates), the two true paragraphs, and tool **chips that bounce** on hover.
 5. **Contact** (pink). "Want a site like these?" Cream rounded **postcard form** (-1.2° tilt, settles flat on focus), fields with a focus glow, live stamp "Posted from {Business}, Northfield", coral send button with **confetti** on success. Beside: "or ring 07881 174192" and email. Below the sheet, the giant **NED** wordmark whose letters bounce on hover, then the footer line.
@@ -73,3 +73,7 @@ Reference-led ✔ · DESIGN.md ✔ · named style ✔ · hero = one idea (dragga
 
 ## 13. Font source (OFL 1.1)
 Bricolage Grotesque, Google Fonts Latin subset, variable wght 300-800 + opsz, 76,888 bytes. Spline Sans Mono removed.
+
+
+## v3.1 motion note
+Hero windows are real links (drag never navigates), fan apart as the hero scrolls out, and lift/straighten with an "Open live site" pill on hover/focus.
